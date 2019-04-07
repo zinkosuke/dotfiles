@@ -1,0 +1,21 @@
+# Mac
+.DS_Store
+.localized
+
+# Win
+Thumbs.db
+
+# Config
+.env
+
+# Vim
+*.swp
+.*.swp
+
+# Python
+__pycache__/
+.venv
+.ipynb_checkpoints
+
+# Vagrant
+.vagrant

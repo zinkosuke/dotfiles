@@ -1,0 +1,31 @@
+[user]
+    name = 
+    email = 
+[core]
+    autocrlf = false
+    editor = vim
+    excludesfile = ~/.gitignore
+    pager = less -rN
+    quotepath = false
+[color]
+    ui = auto
+[merge]
+    ff = false
+[push]
+    default = current
+[pull]
+    ff = only
+[alias]
+    a = add
+    b = branch -avv
+    c = checkout
+    cl = clone
+    cm = commit -m
+    d = diff
+    f = fetch
+    g = grep
+    l = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    ps = push
+    pl = pull
+    r = reset
+    s = status -bsu
