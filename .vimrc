@@ -222,6 +222,6 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/scrooloose/nerdtree
 """"""""""""""""""""""""""""""""""""""""""""""""""
-autocmd vimenter * NERDTree
+" autocmd vimenter * NERDTree
 nnoremap <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

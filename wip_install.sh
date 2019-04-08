@@ -7,6 +7,7 @@ brew install \
     awk \
     ghq \
     git \
+    jq \
     vim \
     peco \
     tmux \
