@@ -10,6 +10,7 @@ set fileencoding=utf-8
 set fileencodings=utf-8,shift_jis,cp932
 set fileformats=unix,mac,dos
 set wildmenu
+set term=screen-256color
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Key bind settings.

@@ -1,8 +1,9 @@
 ##################################################
 # Colors.
 ##################################################
-autoload -Uz colors
-colors
+# TODO If enabled, display is broken.
+#autoload -Uz colors
+#colors
 
 ##################################################
 # Delimiters.
@@ -35,56 +36,92 @@ bindkey "^R" history-incremental-search-backward
 ##################################################
 # Options.
 ##################################################
+# `cd`.
 setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
+# Comment in command line.
 setopt interactive_comments
-setopt share_history
+# `history`.
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
+setopt hist_no_store
 setopt hist_reduce_blanks
+setopt hist_verify
+setopt inc_append_history
+# Enable extended notation
 setopt extended_glob
 
 ##################################################
 # Environ.
 ##################################################
+# History.
 export HISTFILE=${HOME}/.zsh_history
 export HISTSIZE=100
-export SAVEHIST=5000
-export EDITORP=vim
+export SAVEHIST=100
+# `cd`.
+export DIRSTACKSIZE=50
+# Editor.
+export EDITORP='vim'
+export VISUAL='vim'
+export PAGER='less -N'
+# Prompt.
 export PROMPT="$fg[red]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%} > "
 
 ##################################################
 # Alias.
 ##################################################
+# Git.
+alias g='git'
+alias ga='git add'
+alias gb='git branch'
+alias gc='git checkout'
+alias gcl='git clone'
+alias gcm='git commit -m'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gf='git fetch'
+alias gg='git grep'
+alias gl='git log --graph --all --abbrev-commit'
+alias glo='git log --graph --all --abbrev-commit --oneline'
+alias gpl='git pull'
+alias gps='git push'
+alias gr='git reset'
+alias gs='git status -bsu'
+alias gst='git stash'
+alias grr='cd $(ghq root)/$(ghq list | peco)'
+alias gbb='git checkout $(git branch --format="%(refname:short)" | peco)'
+
+# Docker.
+alias d='docker'
+alias di='docker image ls'
+alias dc='docker container ls -a' # Overwrite command if exists.
+alias d='docker network ls'
+alias d-c='docker-compose'
+
+alias jupyter='docker run --rm -it -v $(pwd):/home/jovyan/work -p 8888:8888 jupyter/datascience-notebook start-notebook.sh --NotebookApp.token=""'
+alias python='docker run --rm -it -v $(pwd):/work -w /work python:3.7-alpine'
+
+# Others.
 case "$(uname)" in
     "Darwin")
-        alias ll='ls -laFG'
+        alias ll='ls -lAFG'
         ;;
     *)
-        alias ll='ls -laF --color=auto'
+        alias ll='ls -lAF --color=auto'
         ;;
 esac
-chpwd() { ll }
-
-alias d='docker'
-alias d-c='docker-compose'
-alias g='git'
-alias gp='cd $(ghq root)/$(ghq list | peco)'
 alias v='vim -p'
 alias vd='vim -d'
 alias vg='vagrant'
+alias x='xargs'
 
 ##################################################
 # Functions.
 ##################################################
+chpwd() { ll }
+
 function rl() {
     echo "Reload shell ${SHELL}"
     exec ${SHELL} -l
 }
-
-##################################################
-# Alias on docker.
-##################################################
-alias jupyter='docker run --rm -it -v $(pwd):/home/jovyan/work -p 8888:8888 jupyter/datascience-notebook start-notebook.sh --NotebookApp.token=""'
-alias python='docker run --rm -it -v $(pwd):/work -w /work python:3.7-alpine'
