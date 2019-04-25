@@ -62,7 +62,7 @@ export SAVEHIST=100
 # `cd`.
 export DIRSTACKSIZE=50
 # Editor.
-export EDITORP='vim'
+export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less -N'
 # Prompt.
