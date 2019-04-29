@@ -92,6 +92,10 @@ alias gst='git stash'
 alias grr='cd $(ghq root)/$(ghq list | peco)'
 alias gbb='git checkout $(git branch --format="%(refname:short)" | peco)'
 
+# Vagrant.
+alias vg='vagrant'
+alias vgg='vagrant global-status'
+
 # Docker.
 alias d='docker'
 alias db='docker build --force-rm=true --rm=true --no-cache=true'
@@ -99,6 +103,7 @@ alias dc='docker container ls -a' # Overwrite command if exists.
 alias di='docker image ls'
 alias dn='docker network ls'
 alias dr='docker run -it --rm'
+alias dv='docker volume ls'
 alias d-c='docker-compose'
 
 alias jupyter='docker run --rm -it -v $(pwd):/home/jovyan/work -p 8888:8888 jupyter/datascience-notebook start-notebook.sh --NotebookApp.token=""'
@@ -115,7 +120,6 @@ case "$(uname)" in
 esac
 alias v='vim -p'
 alias vd='vim -d'
-alias vg='vagrant'
 alias x='xargs'
 
 ##################################################
