@@ -71,30 +71,31 @@ export PROMPT="$fg[red]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%} > 
 ##################################################
 # Alias.
 ##################################################
+# AWS.
+alias ap='export AWS_DEFAULT_PROFILE=$(cat ~/.aws/credentials | grep "^\[" | peco | tr -d "[]")'
+
 # Git.
 alias g='git'
 alias ga='git add'
 alias gb='git branch'
+alias gbb='git checkout $(git branch --format="%(refname:short)" | peco)'
 alias gc='git checkout'
+alias gcb='git checkout -b'
 alias gcl='git clone'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gf='git fetch'
+alias gfp='git fetch --prune'
 alias gg='git grep'
-alias gl='git log --graph --all --abbrev-commit'
-alias glo='git log --graph --all --abbrev-commit --oneline'
+alias gl='git log --graph --all --abbrev-commit --oneline'
+alias gla='git log --graph --all --abbrev-commit'
+alias gll='cd $(ghq root)/$(ghq list | peco)'
 alias gm='git commit -m'
 alias gpl='git pull'
 alias gps='git push'
 alias gr='git reset'
 alias gs='git status -bsu'
 alias gst='git stash'
-alias grr='cd $(ghq root)/$(ghq list | peco)'
-alias gbb='git checkout $(git branch --format="%(refname:short)" | peco)'
-
-# Vagrant.
-alias vg='vagrant'
-alias vgg='vagrant global-status'
 
 # Docker.
 alias d='docker'
@@ -109,6 +110,10 @@ alias d-c='docker-compose'
 alias jupyter='docker run --rm -it -v $(pwd):/home/jovyan/work -p 8888:8888 jupyter/datascience-notebook start-notebook.sh --NotebookApp.token=""'
 alias python='docker run --rm -it -v $(pwd):/work -w /work python:3.7-alpine'
 
+# Vagrant.
+alias vg='vagrant'
+alias vgg='vagrant global-status'
+
 # Others.
 case "$(uname)" in
     "Darwin")
@@ -118,6 +123,7 @@ case "$(uname)" in
         alias ll='ls -lAF --color=auto'
         ;;
 esac
+alias h='history'
 alias v='vim -p'
 alias vd='vim -d'
 alias x='xargs'

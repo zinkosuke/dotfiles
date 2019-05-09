@@ -64,7 +64,7 @@ set display=lastline
 " set virtualedit=onemore
 set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,],~
-highlight CursorColumn ctermbg=black
+highlight CursorColumn ctermbg=darkgray
 highlight ColorColumn ctermbg=blue
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
