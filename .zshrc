@@ -138,8 +138,8 @@ function rl() {
 }
 
 function peco-inc-history() {
-    buf=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
-    CURSOR=$#buf
+    BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
+    CURSOR=$#BUFFER
     zle reset-prompt
 }
 zle -N peco-inc-history
