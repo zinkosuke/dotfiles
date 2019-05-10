@@ -31,7 +31,7 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
-bindkey "^R" history-incremental-search-backward
+# bindkey "^R" history-incremental-search-backward
 
 ##################################################
 # Options.
@@ -123,7 +123,6 @@ case "$(uname)" in
         alias ll='ls -lAF --color=auto'
         ;;
 esac
-alias h='history'
 alias v='vim -p'
 alias vd='vim -d'
 alias x='xargs'
@@ -137,3 +136,11 @@ function rl() {
     echo "Reload shell ${SHELL}"
     exec ${SHELL} -l
 }
+
+function peco-inc-history() {
+    buf=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
+    CURSOR=$#buf
+    zle reset-prompt
+}
+zle -N peco-inc-history
+bindkey '^R' peco-inc-history
