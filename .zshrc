@@ -23,6 +23,14 @@ zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' ignore-parents parent pwd ..
 zmodload zsh/complist
 
+function peco-inc-history() {
+    BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N peco-inc-history
+bindkey '^R' peco-inc-history
+
 ##################################################
 # Key binds
 ##################################################
@@ -31,7 +39,6 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
-# bindkey "^R" history-incremental-search-backward
 
 ##################################################
 # Options.
@@ -51,6 +58,11 @@ setopt hist_verify
 setopt inc_append_history
 # Enable extended notation
 setopt extended_glob
+# Reload settings.
+function rl() {
+    echo "Reload shell ${SHELL}"
+    exec ${SHELL} -l
+}
 
 ##################################################
 # Environ.
@@ -101,20 +113,21 @@ alias gst='git stash'
 alias d='docker'
 alias db='docker build --force-rm=true --rm=true --no-cache=true'
 alias dc='docker container ls -a' # Overwrite command if exists.
+alias de='docker exec -it'
 alias di='docker image ls'
 alias dn='docker network ls'
 alias dr='docker run -it --rm'
 alias dv='docker volume ls'
 alias d-c='docker-compose'
 
-alias jupyter='docker run --rm -it -v $(pwd):/home/jovyan/work -p 8888:8888 jupyter/datascience-notebook start-notebook.sh --NotebookApp.token=""'
-alias python='docker run --rm -it -v $(pwd):/work -w /work python:3.7-alpine'
-
 # Vagrant.
 alias vg='vagrant'
 alias vgg='vagrant global-status'
 
 # Others.
+alias v='vim -p'
+alias vd='vim -d'
+alias x='xargs'
 case "$(uname)" in
     "Darwin")
         alias ll='ls -lAFG'
@@ -123,24 +136,4 @@ case "$(uname)" in
         alias ll='ls -lAF --color=auto'
         ;;
 esac
-alias v='vim -p'
-alias vd='vim -d'
-alias x='xargs'
-
-##################################################
-# Functions.
-##################################################
 chpwd() { ll }
-
-function rl() {
-    echo "Reload shell ${SHELL}"
-    exec ${SHELL} -l
-}
-
-function peco-inc-history() {
-    BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
-    CURSOR=$#BUFFER
-    zle reset-prompt
-}
-zle -N peco-inc-history
-bindkey '^R' peco-inc-history
