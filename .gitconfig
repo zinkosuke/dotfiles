@@ -1,14 +1,18 @@
 [user]
     name = 
     email = 
+[color]
+    ui = auto
 [core]
     autocrlf = false
     editor = vim
     excludesfile = ~/.gitignore
     pager = less -rN
     quotepath = false
-[color]
-    ui = auto
+[diff]
+    tool = vimdiff
+[difftool]
+    prompt = false
 [merge]
     ff = false
 [push]
