@@ -16,8 +16,7 @@ zstyle ':zle:*' word-style unspecified
 ##################################################
 # Completion.
 ##################################################
-autoload -Uz compinit
-compinit
+autoload -Uz compinit; compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' ignore-parents parent pwd ..
@@ -84,16 +83,17 @@ export PROMPT="$fg[red]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%} > 
 # Alias.
 ##################################################
 # AWS.
-alias ap='export AWS_DEFAULT_PROFILE=$(cat ~/.aws/credentials | grep "^\[" | peco | tr -d "[]")'
+alias all='export AWS_PROFILE=$(grep "^\[" ~/.aws/credentials | tr -d "[]"| peco)'
+
+# SSH.
+alias sll='ssh $(grep "Host " ~/.ssh/config | grep -Fv "*" | cut -d" " -f 2 | peco)'
 
 # Git.
-alias g='git'
 alias ga='git add'
 alias gb='git branch'
 alias gbb='git checkout $(git branch --format="%(refname:short)" | peco)'
 alias gc='git checkout'
 alias gcb='git checkout -b'
-alias gcl='git clone'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gdd='git difftool'
@@ -126,15 +126,8 @@ alias vg='vagrant'
 alias vgg='vagrant global-status'
 
 # Others.
+alias ll='ls -lahFG'  # For mac.
 alias v='vim -p'
 alias vd='vim -d'
 alias x='xargs'
-case "$(uname)" in
-    "Darwin")
-        alias ll='ls -lAFG'
-        ;;
-    *)
-        alias ll='ls -lAF --color=auto'
-        ;;
-esac
 chpwd() { ll }

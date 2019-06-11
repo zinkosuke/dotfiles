@@ -19,3 +19,5 @@
     default = current
 [pull]
     ff = only
+[ghq]
+    root = ~/OneDrive/ghq
