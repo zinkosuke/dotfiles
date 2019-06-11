@@ -141,7 +141,8 @@ precmd() {
         PR_AWS=" 🌩  %F{129}${AWS_PROFILE}%f"
     fi
 
-    PROMPT='%n@%m %F{249}${D}%f ${vcs_info_msg_0_} ${PR_AWS}
+    PROMPT='
+%n@%m %F{249}${D}%f ${vcs_info_msg_0_} ${PR_AWS}
 %F{009}>>>%f '
 }
 
