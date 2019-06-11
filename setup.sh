@@ -10,14 +10,13 @@ brew install \
     git \
     jq \
     vim \
-    peco \
     tmux \
     tree \
-    zsh
+    zsh \
+    zplug
 
 CD=$(cd $(dirname $0); pwd)
-
-for fn in $(ls -1aF | grep '^\.' | grep -v '\/$' | grep -v swp); do
+for fn in $(ls -1aF | grep '^\..*[^/]$'); do
     echo "ln -s ${CD}/${fn} ~/${fn}"
     ln -s ${CD}/${fn} ~/${fn}
 done
