@@ -122,7 +122,7 @@ setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "🔔"
 zstyle ':vcs_info:git:*' unstagedstr "🍣"
-zstyle ':vcs_info:*' formats "%F{247}%S%f [%F{009}%r%f|%F{129}%b%f%c%u]"
+zstyle ':vcs_info:*' formats "%F{249}%r/%S%f %c%u %F{129}%b%f"
 zstyle ':vcs_info:*' actionformats '%F{247}%S%f [%r/%b|%a]'
 
 # Hooks
@@ -138,15 +138,15 @@ precmd() {
         D='%~'
     fi
     if [ "${AWS_PROFILE}" != "" ]; then
-        PR_AWS="[%F{129}${AWS_PROFILE}%f🌩 ]"
+        PR_AWS=" 🌩  %F{129}${AWS_PROFILE}%f"
     fi
 
-    PROMPT='%n%F{020}@%f%m %F{247}${D}%f ${vcs_info_msg_0_} ${PR_AWS}
+    PROMPT='%n@%m %F{249}${D}%f ${vcs_info_msg_0_} ${PR_AWS}
 %F{009}>>>%f '
 }
 
 # Show colors
-# for c in {000..255}; do
-#     echo -n "\e[38;5;${c}m $c"
-#     [ $(($c%16)) -eq 15 ] && echo
-# done; echo
+for c in {000..255}; do
+    echo -n "\e[38;5;${c}m $c"
+    [ $(($c%16)) -eq 15 ] && echo
+done; echo
