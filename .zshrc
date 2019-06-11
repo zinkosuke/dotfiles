@@ -120,10 +120,10 @@ alias x='xargs'
 autoload -Uz vcs_info
 setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
-zstyle ':vcs_info:*' actionformats '[%b|%a]'
+zstyle ':vcs_info:git:*' stagedstr "🔔"
+zstyle ':vcs_info:git:*' unstagedstr "🍣"
+zstyle ':vcs_info:*' formats "%F{247}%S%f [%F{009}%r%f|%F{129}%b%f%c%u]"
+zstyle ':vcs_info:*' actionformats '%F{247}%S%f [%r/%b|%a]'
 
 # Hooks
 chpwd() {
@@ -133,10 +133,15 @@ chpwd() {
 precmd() {
     vcs_info
     PR_AWS=''
-    if [ "${AWS_PROFILE}" != "" ]; then
-        PR_AWS="AWS[%F{129}${AWS_PROFILE}%f] "
+    D=''
+    if [ "${vcs_info_msg_0_}" = "" ]; then
+        D='%~'
     fi
-    PROMPT='%F{002}%n%f%F{033}@%f%F{003}%m%f %F{247}%~%f ${PR_AWS}${vcs_info_msg_0_}
+    if [ "${AWS_PROFILE}" != "" ]; then
+        PR_AWS="[%F{129}${AWS_PROFILE}%f🌩 ]"
+    fi
+
+    PROMPT='%n%F{020}@%f%m %F{247}${D}%f ${vcs_info_msg_0_} ${PR_AWS}
 %F{009}>>>%f '
 }
 
