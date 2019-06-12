@@ -10,6 +10,7 @@ brew install \
     git \
     jq \
     vim \
+    peco \
     tmux \
     tree \
     zsh \
