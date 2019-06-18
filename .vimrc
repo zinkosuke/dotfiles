@@ -58,7 +58,7 @@ set ruler
 set cursorline
 set cursorcolumn
 set colorcolumn=78
-set statusline=%m%r%h%w%F\ (%Y\(%{&fileencoding}.%{&ff}(%04l,%04v/%04L
+set statusline=%m%r%h%w%f\ (%Y\(%{&fileencoding}.%{&ff}(%04l,%04v/%04L
 set laststatus=2
 set display=lastline
 " set virtualedit=onemore

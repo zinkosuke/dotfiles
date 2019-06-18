@@ -121,8 +121,7 @@ setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr " 🔔 "
 zstyle ':vcs_info:git:*' unstagedstr " 🍣 "
-zstyle ':vcs_info:*' formats "%c%u %F{129}%b%f"
-zstyle ':vcs_info:*' actionformats '%F{247}%S%f [%r/%b|%a]'
+zstyle ':vcs_info:*' formats "%c%u %F{202}%b%f"
 
 # Hooks
 chpwd() {
@@ -133,10 +132,10 @@ precmd() {
     vcs_info
     PR_AWS=''
     if [ "${AWS_PROFILE}" != "" ]; then
-        PR_AWS=" 🌩  %F{129}${AWS_PROFILE}%f"
+        PR_AWS=" 🌩  %F{202}${AWS_PROFILE}%f"
     fi
     PROMPT='%F{249}%~%f
-%F{001}%n@%m%f ${vcs_info_msg_0_} ${PR_AWS}
+%F{164}%n@%m%f ${vcs_info_msg_0_} ${PR_AWS}
 %F{014}>>>%f '
 }
 
