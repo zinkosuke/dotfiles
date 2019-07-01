@@ -1,10 +1,10 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Basic settings.
 """"""""""""""""""""""""""""""""""""""""""""""""""
+
 syntax enable
-set autoread
+set autoread " :checktime
 set noswapfile
-set showtabline=2
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8,shift_jis,cp932
@@ -12,35 +12,37 @@ set fileformats=unix,mac,dos
 set wildmenu
 set term=screen-256color
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Key bind settings.
 """"""""""""""""""""""""""""""""""""""""""""""""""
+
 " Move window.
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+
+" Tabs.
+nnoremap sm gt
+nnoremap sn gT
+nnoremap st :<C-u>tabnew<CR>
+
 " Resize window.
 nnoremap sj <C-w>+
 nnoremap sk <C-w>-
 nnoremap sh <C-w>>
 nnoremap sl <C-w><
 nnoremap s= <C-w>=
-" Tabs.
-nnoremap st :<C-u>tabnew<CR>
-nnoremap sm gt
-nnoremap sn gT
-" Yank.
+
+" Others.
 nnoremap Y y$
-" Reset highlight.
-nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
-" Move.
-nnoremap j gj
-nnoremap k gk
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Indent settings.
 """"""""""""""""""""""""""""""""""""""""""""""""""
+
 set autoindent
 set smartindent
 set expandtab
@@ -49,23 +51,23 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Cursor and display settings.
 """"""""""""""""""""""""""""""""""""""""""""""""""
+
 set ambiwidth=double
 set number
 set ruler
 set cursorline
 set cursorcolumn
-set colorcolumn=78
-set statusline=%m%r%h%w%f\ (%Y\(%{&fileencoding}.%{&ff}(%04l,%04v/%04L
-set laststatus=2
+set colorcolumn=79
 set display=lastline
-" set virtualedit=onemore
 set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,],~
 highlight CursorColumn ctermbg=darkgray
 highlight ColorColumn ctermbg=blue
+set pumheight=10
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Search settings.
@@ -76,12 +78,15 @@ set smartcase
 set wrapscan
 set hlsearch
 set showmatch matchtime=1
+nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin.
+" Plugin dein.vim.
 """"""""""""""""""""""""""""""""""""""""""""""""""
 let s:dein_path = expand('~/.vim/dein')
 let s:dein_repo_path = s:dein_path . '/repos/github.com/Shougo/dein.vim'
+
 "dein Scripts-----------------------------
 if &compatible
   set nocompatible
@@ -105,6 +110,10 @@ if dein#load_state(s:dein_path)
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('Shougo/neocomplete.vim')
   call dein#add('scrooloose/nerdtree')
+  call dein#add('Yggdroot/indentLine')
+  call dein#add('vim-airline/vim-airline')
+  call dein#add('tpope/vim-surround')
+  call dein#add('tpope/vim-repeat')
   
   " Required:
   call dein#end()

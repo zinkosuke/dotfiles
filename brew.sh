@@ -17,7 +17,16 @@ brew install \
     zplug
 
 CD=$(cd $(dirname $0); pwd)
-for fn in $(ls -1aF | grep '^\..*[^/]$'); do
-    echo "ln -s ${CD}/${fn} ~/${fn}"
-    ln -s ${CD}/${fn} ~/${fn}
+FILES=$(cat <<EOF
+.gitconfig
+.gitignore
+.tmux.conf
+.vimrc
+.zshrc
+EOF
+)
+
+for f in ${FILES}; do
+    echo "ln -s ${CD}/${f} ~/${f}"
+    ln -s ${CD}/${f} ~/${f}
 done
