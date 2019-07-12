@@ -13,6 +13,7 @@ brew install \
     peco \
     tmux \
     tree \
+    watch \
     zsh \
     zplug
 
