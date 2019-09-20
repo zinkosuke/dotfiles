@@ -13,6 +13,7 @@ brew install \
     peco \
     tmux \
     tree \
+    starship \
     watch \
     zsh \
     zplug
@@ -31,3 +32,8 @@ for f in ${FILES}; do
     echo "ln -s ${CD}/${f} ~/${f}"
     ln -s ${CD}/${f} ~/${f}
 done
+
+mkdir -p ~/.config
+f=starship.toml
+echo "ln -s ${CD}/${f} ~/.config/${f}"
+ln -s ${CD}/${f} ~/.config/${f}

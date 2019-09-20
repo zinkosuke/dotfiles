@@ -1,0 +1,42 @@
+# Git.
+alias g='git'
+alias ga='git add'
+alias gb='git branch'
+alias gc='git checkout'
+alias gcb='git checkout -b'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gdd='git difftool'
+alias gf='git fetch'
+alias gfp='git fetch --prune'
+alias gg='git grep'
+alias gl="git log --graph --all --pretty=format:'%C(yellow)%h %C(cyan)%cd %C(reset)%s %C(red)%d %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=format:'%Y-%m-%d %H:%M:%S'"
+alias gla='git log --graph --all --abbrev-commit'
+alias gm='git commit -m'
+alias gpl='git pull'
+alias gps='git push'
+alias gr='git reset'
+alias gs='git status -bsu'
+alias gst='git stash'
+
+# Docker.
+alias d='docker'
+alias db='docker build --force-rm=true --rm=true --no-cache=true'
+alias dc='docker container ls -a' # Overwrite command if exists.
+alias de='docker exec -it'
+alias di='docker image ls'
+alias dn='docker network ls'
+alias dr='docker run -it --rm'
+alias dv='docker volume ls'
+alias d-c='docker-compose'
+
+# Vagrant.
+alias vg='vagrant'
+alias vgg='vagrant global-status'
+
+# Others.
+alias v='vim -p'
+alias vd='vim -d'
+alias x='xargs'
+alias ll='ls -lahFG'  # For mac.
+chpwd() { ll }

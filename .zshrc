@@ -1,4 +1,7 @@
-# Completion on.
+# Alias.
+. ~/.zsh_alias
+
+# Completion.
 autoload -Uz compinit; compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'  # Ignore case.
 zstyle ':completion:*:default' menu select=1  # Enable arrow keys.
@@ -11,19 +14,12 @@ zmodload zsh/complist
 zplug 'zsh-users/zsh-autosuggestions'
 zplug 'zsh-users/zsh-syntax-highlighting'
 if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
+    printf 'Install? [y/N]: '
     if read -q; then
         echo; zplug install
     fi
 fi
 zplug load --verbose
-
-# Delimiters.
-autoload -Uz select-word-style; select-word-style default
-zstyle ':zle:*' word-chars " /=;@:{},|"
-zstyle ':zle:*' word-style unspecified
-setopt extended_glob         # Enable extended notation e.g. ls test/^*.txt
-setopt interactive_comments  # Comment in command line.
 
 # History.
 export HISTFILE=${HOME}/.zsh_history
@@ -44,6 +40,13 @@ function peco-inc-history() {
 zle -N peco-inc-history
 bindkey '^R' peco-inc-history
 
+# Delimiters.
+autoload -Uz select-word-style; select-word-style default
+    zstyle ':zle:*' word-chars ' /=-;@:()[]{},.|'
+zstyle ':zle:*' word-style unspecified
+setopt extended_glob         # Enable extended notation e.g. ls test/^*.txt
+setopt interactive_comments  # Comment in command line.
+
 # Key binds (vim).
 bindkey -v
 bindkey -M menuselect 'h' vi-backward-char
@@ -62,55 +65,17 @@ export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less -N'
 
-# Alias.
-alias ga='git add'
-alias gb='git branch'
-alias gc='git checkout'
-alias gcb='git checkout -b'
-alias gd='git diff'
-alias gdc='git diff --cached'
-alias gdd='git difftool'
-alias gf='git fetch'
-alias gfp='git fetch --prune'
-alias gg='git grep'
-alias gl="git log --graph --all --pretty=format:'%C(yellow)%h %C(cyan)%cd %C(reset)%s %C(red)%d %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=format:'%Y-%m-%d %H:%M:%S'"
-alias gla='git log --graph --all --abbrev-commit'
-alias gm='git commit -m'
-alias gpl='git pull'
-alias gps='git push'
-alias gr='git reset'
-alias gs='git status -bsu'
-alias gst='git stash'
-alias d='docker'
-alias db='docker build --force-rm=true --rm=true --no-cache=true'
-alias dc='docker container ls -a' # Overwrite command if exists.
-alias de='docker exec -it'
-alias di='docker image ls'
-alias dn='docker network ls'
-alias dr='docker run -it --rm'
-alias dv='docker volume ls'
-alias d-c='docker-compose'
-alias vg='vagrant'
-alias vgg='vagrant global-status'
-alias ll='ls -lahFG'  # For mac.
-alias v='vim -p'
-alias vd='vim -d'
-alias x='xargs'
-
-# Auto ll.
-chpwd() { ll }
-
 # Peco search.
 function p() {
     case "${1}" in
         aws)
-            export AWS_PROFILE=$(grep "^\[" ~/.aws/credentials | tr -d "[]"| peco)
+            export AWS_PROFILE=$(grep '^\[' ~/.aws/credentials | tr -d '[]'| peco)
             ;;
         git)
             cd $(ghq root)/$(ghq list | peco)
             ;;
         ssh)
-            ssh $(grep "Host " ~/.ssh/config | grep -Fv "*" | cut -d" " -f 2 | peco)
+            ssh $(grep 'Host ' ~/.ssh/config | grep -Fv '*' | cut -d' ' -f 2 | peco)
             ;;
     esac
 }
@@ -121,23 +86,16 @@ function rl() {
     exec ${SHELL} -l
 }
 
-# Prompt with git.
-autoload -Uz vcs_info
-setopt prompt_subst
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr " 🔔 "
-zstyle ':vcs_info:git:*' unstagedstr " 🍣 "
-zstyle ':vcs_info:*' formats "%c%u %F{202}%b%f"
-precmd() {
-    vcs_info
+# Starship.
+function show_aws_profile() {
     PR_AWS=''
     if [ "${AWS_PROFILE}" != "" ]; then
-        PR_AWS=" 🌩  %F{202}${AWS_PROFILE}%f"
+        PR_AWS="🌩  AWS[${AWS_PROFILE}]"
     fi
-    PROMPT='%F{249}%~%f
-%F{164}%n@%m%f ${vcs_info_msg_0_} ${PR_AWS}
-%F{014}>>>%f '
+    echo "${PR_AWS}"
 }
+precmd_functions+=('show_aws_profile')
+eval "$(starship init zsh)"
 
 # Show colors.
 # for c in {000..255}; do
