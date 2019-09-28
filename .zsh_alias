@@ -38,5 +38,5 @@ alias vgg='vagrant global-status'
 alias v='vim -p'
 alias vd='vim -d'
 alias x='xargs'
-alias ll='ls -lahFG'  # For mac.
-chpwd() { ll }
+alias l='ls -lahFG'  # For mac.
+chpwd() { l }
