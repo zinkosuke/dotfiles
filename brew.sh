@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # https://brew.sh/index_ja
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
+which brew || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew update
 brew install \
     awk \
@@ -17,9 +16,11 @@ brew install \
     watch \
     zsh \
     zplug
+brew upgrade
 
-CD=$(cd $(dirname $0); pwd)
 FILES=$(cat <<EOF
+.bashrc
+.config
 .gitconfig
 .gitignore
 .tmux.conf
@@ -28,12 +29,8 @@ FILES=$(cat <<EOF
 EOF
 )
 
+CD=$(cd $(dirname $0); pwd)
 for f in ${FILES}; do
     echo "ln -s ${CD}/${f} ~/${f}"
     ln -s ${CD}/${f} ~/${f}
 done
-
-mkdir -p ~/.config
-f=starship.toml
-echo "ln -s ${CD}/${f} ~/.config/${f}"
-ln -s ${CD}/${f} ~/.config/${f}
