@@ -19,7 +19,7 @@ brew install \
 brew upgrade
 
 FILES=$(cat <<EOF
-.bashrc
+.bash_profile
 .config
 .gitconfig
 .gitignore
