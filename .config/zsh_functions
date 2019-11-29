@@ -1,0 +1,19 @@
+function peco_search_history() {
+    BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+
+zle -N peco_search_history
+bindkey '^R' peco_search_history
+
+zle -N peco_search_aws_profile
+bindkey '^A' peco_search_aws_profile
+
+zle -N peco_search_ghq_look
+bindkey '^G' peco_search_ghq_look
+
+zle -N peco_search_ssh_config
+bindkey '^S' peco_search_ssh_config
+
+chpwd() { l }

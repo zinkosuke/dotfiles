@@ -1,3 +1,9 @@
+# Basic.
+alias v='vim -p'
+alias vd='vim -d'
+alias x='xargs'
+alias l='ls -lahFG'  # For mac.
+
 # Git.
 alias g='git'
 alias ga='git add'
@@ -33,10 +39,3 @@ alias d-c='docker-compose'
 # Vagrant.
 alias vg='vagrant'
 alias vgg='vagrant global-status'
-
-# Others.
-alias v='vim -p'
-alias vd='vim -d'
-alias x='xargs'
-alias l='ls -lahFG'  # For mac.
-chpwd() { l }
