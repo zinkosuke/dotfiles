@@ -5,6 +5,7 @@ which brew || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/H
 brew update
 brew install \
     awk \
+    awscli \
     ghq \
     git \
     jq \
@@ -23,6 +24,7 @@ FILES=$(cat <<EOF
 .config
 .gitconfig
 .gitignore
+.jupyter
 .tmux.conf
 .vimrc
 .zshrc

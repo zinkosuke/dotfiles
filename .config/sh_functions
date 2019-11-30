@@ -20,6 +20,23 @@ function peco_search_ghq_look() {
     [ "${git_repo}" != "" ] && cd $(ghq root)/${git_repo}
 }
 
+function peco_search_git_branch() {
+    git_branch=$(git branch | cut -d' ' -f 2 | peco)
+    [ "${git_branch}" != "" ] && git checkout ${git_branch}
+}
+
+function jupyter() {
+    docker run --rm -it \
+        -e AWS_PROFILE=${AWS_PROFILE} \
+        -v ${HOME}/.aws:/home/jovyan/.aws \
+        -v ${HOME}/.jupyter:/home/jovyan/.jupyter \
+        -v $(pwd):/home/jovyan/work \
+        -w /home/jovyan/work \
+        -p 8888:8888 \
+        jupyter/datascience-notebook:latest \
+        start-notebook.sh --NotebookApp.token=""
+}
+
 function p() {
     case "${1}" in
         aws)
@@ -27,6 +44,9 @@ function p() {
             ;;
         git)
             peco_search_ghq_look
+            ;;
+        br)
+            peco_search_git_branch
             ;;
     esac
 }

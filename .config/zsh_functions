@@ -13,4 +13,7 @@ bindkey '^A' peco_search_aws_profile
 zle -N peco_search_ghq_look
 bindkey '^G' peco_search_ghq_look
 
+zle -N peco_search_git_branch
+bindkey '^B' peco_search_git_branch
+
 chpwd() { l }
