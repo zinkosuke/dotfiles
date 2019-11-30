@@ -20,11 +20,6 @@ function peco_search_ghq_look() {
     [ "${git_repo}" != "" ] && cd $(ghq root)/${git_repo}
 }
 
-function peco_search_ssh_config() {
-    ssh_host=$(grep 'Host ' ~/.ssh/config | grep -Fv '*' | cut -d' ' -f 2 | peco)
-    [ "${ssh_host}" != "" ] && ssh ${ssh_host}
-}
-
 function p() {
     case "${1}" in
         aws)
@@ -32,9 +27,6 @@ function p() {
             ;;
         git)
             peco_search_ghq_look
-            ;;
-        ssh)
-            peco_search_ssh_config
             ;;
     esac
 }
