@@ -33,6 +33,8 @@ EOF
 
 CD=$(cd $(dirname $0); pwd)
 for f in ${FILES}; do
-    echo "ln -s ${CD}/${f} ~/${f}"
-    ln -s ${CD}/${f} ~/${f}
+    if [ ! -e ~/${f} ]; then
+        echo "ln -s ${CD}/${f} ~/${f}"
+        ln -s ${CD}/${f} ~/${f}
+    fi
 done

@@ -21,7 +21,7 @@ function peco_search_ghq_look() {
 }
 
 function peco_search_git_branch() {
-    git_branch=$(git branch | cut -d' ' -f 2 | peco)
+    git_branch=$(git branch --format='%(refname:short)' | cut -d' ' -f 2 | peco)
     [ "${git_branch}" != "" ] && git checkout ${git_branch}
 }
 
