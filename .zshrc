@@ -59,7 +59,6 @@ export PAGER='less -N'
 . ~/.config/sh_aliases
 
 # Functions.
-. ~/.config/sh_functions
 . ~/.config/zsh_functions
 
 # Starship.
