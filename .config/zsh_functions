@@ -1,11 +1,50 @@
+function rl() {
+    echo "Reload shell ${SHELL}"
+    exec ${SHELL} -l
+}
+
+function colors() {
+    for c in {000..255}; do
+        echo -n "\e[38;5;${c}m $c"
+        [ $(($c%16)) -eq 15 ] && echo
+    done; echo
+}
+
+function jupyter() {
+    docker run --rm -it \
+        -e AWS_PROFILE=${AWS_PROFILE} \
+        -v ${HOME}/.aws:/home/jovyan/.aws \
+        -v ${HOME}/.jupyter:/home/jovyan/.jupyter \
+        -v $(pwd):/home/jovyan/work \
+        -w /home/jovyan/work \
+        -p 8888:8888 \
+        jupyter/datascience-notebook:latest \
+        start-notebook.sh --NotebookApp.token=""
+}
+
+function peco_search_aws_profile() {
+    aws_profile=$(grep '^\[' ~/.aws/credentials | tr -d '[]'| peco)
+    [ "${aws_profile}" != "" ] && export AWS_PROFILE=${aws_profile}
+    zle reset-prompt
+}
+
+function peco_search_ghq_look() {
+    git_repo=$(ghq list | peco)
+    [ "${git_repo}" != "" ] && cd $(ghq root)/${git_repo}
+    zle reset-prompt
+}
+
+function peco_search_git_branch() {
+    git_branch=$(git branch --format='%(refname:short)' | cut -d' ' -f 2 | peco)
+    [ "${git_branch}" != "" ] && git checkout ${git_branch}
+    zle reset-prompt
+}
+
 function peco_search_history() {
     BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
     CURSOR=$#BUFFER
     zle reset-prompt
 }
-
-zle -N peco_search_history
-bindkey '^H' peco_search_history
 
 zle -N peco_search_aws_profile
 bindkey '^A' peco_search_aws_profile
@@ -15,5 +54,8 @@ bindkey '^G' peco_search_ghq_look
 
 zle -N peco_search_git_branch
 bindkey '^B' peco_search_git_branch
+
+zle -N peco_search_history
+bindkey '^H' peco_search_history
 
 chpwd() { l }
