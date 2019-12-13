@@ -8,6 +8,7 @@ brew install \
     awscli \
     ghq \
     git \
+    gnu-sed \
     jq \
     vim \
     peco \

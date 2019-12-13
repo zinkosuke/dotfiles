@@ -3,6 +3,7 @@ alias v='vim -p'
 alias vd='vim -d'
 alias x='xargs'
 alias l='ls -lahFG'  # For mac.
+alias sed='gsed'
 
 # Git.
 alias g='git'
