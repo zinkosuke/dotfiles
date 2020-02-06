@@ -1,6 +1,6 @@
 # https://starship.rs/ja-JP/config/
 
-add_newline = true
+add_newline = false
 
 [character]
 symbol = ">>>"
