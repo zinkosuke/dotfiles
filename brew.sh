@@ -6,6 +6,7 @@ brew update
 brew install \
     awk \
     awscli \
+    gcc \
     ghq \
     git \
     gnu-sed \
