@@ -20,11 +20,8 @@ brew install \
     zsh \
     zplug
 brew upgrade
-curl -fLSs https://circle.ci/cli | bash
-circleci update
 
 FILES=$(cat <<EOF
-.bash_profile
 .config
 .gitconfig
 .gitignore

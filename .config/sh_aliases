@@ -36,7 +36,3 @@ alias dn='docker network ls'
 alias dr='docker run -it --rm'
 alias dv='docker volume ls'
 alias d-c='docker-compose'
-
-# Vagrant.
-alias vg='vagrant'
-alias vgg='vagrant global-status'
