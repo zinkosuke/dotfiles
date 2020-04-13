@@ -2,7 +2,7 @@
 alias v='vim -p'
 alias vd='vim -d'
 alias x='xargs'
-alias l='ls -lahFG'  # For mac.
+alias l='ls -lahFG'
 alias sed='gsed'
 
 # Git.
@@ -29,7 +29,7 @@ alias gst='git stash'
 # Docker.
 alias d='docker'
 alias db='docker build --force-rm=true --rm=true --no-cache=true'
-alias dc='docker container ls -a' # Overwrite command if exists.
+alias dc='docker container ls -a'
 alias de='docker exec -it'
 alias di='docker image ls'
 alias dn='docker network ls'

@@ -56,6 +56,6 @@ export VISUAL='vim'
 export PAGER='less -N'
 
 # Alias, Functions.
-. ~/.config/sh_aliases
-. ~/.config/zsh_functions
+. ~/.config/aliases
+. ~/.config/functions
 eval "$(starship init zsh)"
