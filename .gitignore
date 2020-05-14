@@ -6,7 +6,7 @@
 Thumbs.db
 
 # Config
-.env
+# .env
 
 # Vim
 *.swp

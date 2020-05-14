@@ -27,19 +27,19 @@ function jupyter() {
 }
 
 function peco_search_aws_profile() {
-    aws_profile=$(grep '^\[' ~/.aws/credentials | tr -d '[]'| peco)
+    local aws_profile=$(grep '^\[' ~/.aws/credentials | tr -d '[]'| peco)
     [ "${aws_profile}" != "" ] && export AWS_PROFILE=${aws_profile}
     zle reset-prompt
 }
 
 function peco_search_ghq_look() {
-    git_repo=$(ghq list | peco)
+    local git_repo=$(ghq list | peco)
     [ "${git_repo}" != "" ] && cd $(ghq root)/${git_repo}
     zle reset-prompt
 }
 
 function peco_search_git_branch() {
-    git_branch=$(git branch --format='%(refname:short)' | cut -d' ' -f 2 | peco)
+    local git_branch=$(git branch --format='%(refname:short)' | cut -d' ' -f 2 | peco)
     [ "${git_branch}" != "" ] && git checkout ${git_branch}
     zle reset-prompt
 }
