@@ -28,7 +28,7 @@ alias gst='git stash'
 
 # Docker.
 alias d='docker'
-alias db='docker build --force-rm=true --rm=true --no-cache=true'
+alias db='docker build --force-rm --rm --no-cache'
 alias dc='docker container ls -a'
 alias de='docker exec -it'
 alias der='docker exec -it -u root'

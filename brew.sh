@@ -13,6 +13,7 @@ brew install \
     jq \
     vim \
     peco \
+    terraform \
     tmux \
     tree \
     starship \
