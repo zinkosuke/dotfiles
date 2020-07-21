@@ -61,7 +61,7 @@ set number
 set ruler
 set cursorline
 set cursorcolumn
-set colorcolumn=120
+set colorcolumn=80
 set display=lastline
 set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,],~
