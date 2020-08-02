@@ -11,15 +11,15 @@ brew install \
     git \
     gnu-sed \
     jq \
-    vim \
     peco \
+    starship \
     terraform \
     tmux \
     tree \
-    starship \
+    vim \
     watch \
-    zsh \
-    zplug
+    zplug \
+    zsh
 brew upgrade
 
 FILES=$(cat <<EOF
