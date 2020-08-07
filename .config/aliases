@@ -1,11 +1,11 @@
-# Basic.
+# basic.
 alias v='vim -p'
 alias vd='vim -d'
 alias x='xargs'
 alias l='ls -lahFG'
 alias sed='gsed'
 
-# Git.
+# git.
 alias g='git'
 alias ga='git add'
 alias gb='git branch'
@@ -26,7 +26,7 @@ alias gr='git reset'
 alias gs='git status -bsu'
 alias gst='git stash'
 
-# Docker.
+# docker.
 alias d='docker'
 alias db='docker build --force-rm --rm --no-cache'
 alias dcl='docker container ls -a'
@@ -35,7 +35,9 @@ alias dil='docker image ls'
 alias dnl='docker network ls'
 alias dr='docker run -it --rm'
 alias dvl='docker volume ls'
+# docker-compose.
 alias dc='docker-compose'
-alias dcu='docker-compose up'
 alias dcb='docker-compose build --no-cache --force-rm'
 alias dcd='docker-compose down -v'
+alias dce='docker-compose exec'
+alias dcu='docker-compose up'
