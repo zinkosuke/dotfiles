@@ -16,7 +16,7 @@ alias gdc='git diff --cached'
 alias gdd='git difftool'
 alias gf='git fetch'
 alias gfp='git fetch --prune'
-alias gg='git grep'
+alias gg='git grep -n'
 alias gl="git log --graph --all --pretty=format:'%C(yellow)%h %C(cyan)%cd %C(reset)%s %C(red)%d %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=format:'%Y-%m-%d %H:%M:%S'"
 alias gla='git log --graph --all --abbrev-commit'
 alias gm='git commit -m'
