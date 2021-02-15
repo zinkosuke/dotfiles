@@ -1,11 +1,9 @@
 #!/bin/bash
 
-# https://brew.sh/index_ja
-which brew || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# which brew || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew update
 brew install \
     awk \
-    awscli \
     gcc \
     ghq \
     git \
@@ -13,7 +11,6 @@ brew install \
     jq \
     peco \
     starship \
-    terraform \
     tmux \
     tree \
     vim \

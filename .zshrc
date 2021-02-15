@@ -24,6 +24,9 @@ if ! zplug check --verbose; then
     fi
 fi
 zplug load --verbose
+# If following error occurred.
+#   "zsh compinit: insecure directories, run compaudit for list."
+# chmod g-w /usr/local/share/zsh
 
 # History.
 export HISTFILE=${HOME}/.zsh_history
