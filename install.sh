@@ -37,3 +37,7 @@ for f in ${FILES}; do
         ln -s ${CD}/${f} ~/${f}
     fi
 done
+
+# Settings
+defaults write com.apple.screencapture location ~/Downloads
+killall SystemUIServer
