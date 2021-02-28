@@ -4,6 +4,7 @@
 brew update
 brew install \
     awk \
+    awscli \
     gcc \
     ghq \
     git \
@@ -11,6 +12,7 @@ brew install \
     jq \
     peco \
     starship \
+    tfenv \
     tmux \
     tree \
     vim \
