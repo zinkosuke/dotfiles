@@ -37,6 +37,8 @@ nnoremap s= <C-w>=
 
 " Others.
 nnoremap Y y$
+:command Hd diffsplit
+:command Vd vertical diffsplit
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""

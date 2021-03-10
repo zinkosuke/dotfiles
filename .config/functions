@@ -11,7 +11,7 @@ function colors() {
 }
 
 function vgrep() {
-    vim -p $(grep -Filr "${1}" .)
+    vim -p $(grep -Filr "${1}" ${2:-.})
 }
 
 function jupyter() {
