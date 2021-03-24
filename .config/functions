@@ -28,7 +28,11 @@ function jupyter() {
 
 function peco_search_aws_profile() {
     local aws_profile=$(grep '^\[' ~/.aws/credentials | tr -d '[]'| sort | peco)
-    [ "${aws_profile}" != "" ] && export AWS_PROFILE=${aws_profile}
+    if [ "${aws_profile}" = "" ]; then
+        unset AWS_PROFILE
+    else
+        export AWS_PROFILE=${aws_profile}
+    fi
     zle reset-prompt
 }
 
