@@ -116,6 +116,7 @@ if dein#load_state(s:dein_path)
   call dein#add('vim-airline/vim-airline')
   call dein#add('tpope/vim-surround')
   call dein#add('tpope/vim-repeat')
+  call dein#add('kamykn/spelunker.vim')
   
   " Required:
   call dein#end()
