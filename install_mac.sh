@@ -14,6 +14,7 @@ brew install \
     gnu-sed \
     jq \
     peco \
+    sops \
     starship \
     tfenv \
     tmux \
