@@ -1,11 +1,14 @@
 #!/bin/bash
 
+# TODO dmgから
+# awscliV2, Docker
+
 # which brew || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew update
 brew install \
     awk \
-    awscli \
     gcc \
+    gh \
     ghq \
     git \
     gnu-sed \
@@ -19,7 +22,7 @@ brew install \
     watch \
     zplug \
     zsh
-brew upgrade
+# brew upgrade
 
 FILES=$(cat <<EOF
 .config
