@@ -7,13 +7,16 @@
 brew update
 brew install \
     awk \
+    bat \
     gcc \
     gh \
     ghq \
     git \
     gnu-sed \
     jq \
+    parquet-tools \
     peco \
+    ripgrep \
     sops \
     starship \
     tfenv \

@@ -1,9 +1,10 @@
 # basic.
+alias l='ls -lahFG'
+alias pt='parquet-tools'
+alias sed='gsed'
 alias v='vim -p'
 alias vd='vim -d'
 alias x='xargs'
-alias l='ls -lahFG'
-alias sed='gsed'
 
 # git.
 alias g='git'
