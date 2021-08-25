@@ -3,6 +3,7 @@
 # TODO dmgから
 # awscliV2, Docker
 
+# Install.
 # which brew || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew update
 brew install \
@@ -28,26 +29,19 @@ brew install \
     zsh
 # brew upgrade
 
-FILES=$(cat <<EOF
-.config
-.gitconfig
-.gitignore
-.jupyter
-.tmux.conf
-.vimrc
-.zshrc
-EOF
-)
+# tmux plugin.
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-CD=$(cd $(dirname $0); pwd)
+# Dotfiles.
+DOTFILES=dotfiles
+FILES=$(ls -1a ${DOTFILES} | grep -E "\.[^\.]+")
+CD=$(cd $(dirname $0); pwd)/${DOTFILES}
 for f in ${FILES}; do
     if [ ! -e ~/${f} ]; then
         echo "ln -s ${CD}/${f} ~/${f}"
         ln -s ${CD}/${f} ~/${f}
     fi
 done
-
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # Settings
 defaults write com.apple.screencapture location ~/Downloads
