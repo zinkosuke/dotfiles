@@ -47,6 +47,8 @@ for f in ${FILES}; do
     fi
 done
 
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 # Settings
 defaults write com.apple.screencapture location ~/Downloads
 killall SystemUIServer
