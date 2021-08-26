@@ -39,7 +39,7 @@ CD=$(cd $(dirname $0); pwd)/${DOTFILES}
 for f in ${FILES}; do
     if [ ! -e ~/${f} ]; then
         echo "ln -s ${CD}/${f} ~/${f}"
-        ln -s ${CD}/${f} ~/${f}
+        ln -sf ${CD}/${f} ~/${f}
     fi
 done
 
