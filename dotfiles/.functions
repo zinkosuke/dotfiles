@@ -27,30 +27,48 @@ function jupyter() {
 }
 
 function peco_search_aws_profile() {
-    local aws_profile=$(grep '^\[' ~/.aws/credentials | tr -d '[]'| sort | peco)
-    if [ "${aws_profile}" = "" ]; then
-        unset AWS_PROFILE
+    local r=$(grep '^\[.*\]' ~/.aws/credentials | tr -d '[]'| sort | peco)
+    if [ -n "${r}" ]; then
+        export AWS_PROFILE=${r}
     else
-        export AWS_PROFILE=${aws_profile}
+        unset AWS_PROFILE
     fi
     zle reset-prompt
 }
 
 function peco_search_ghq_look() {
-    local git_repo=$(ghq list | sort | peco)
-    [ "${git_repo}" != "" ] && cd $(ghq root)/${git_repo}
+    local r=$(ghq list | sort | peco)
+    [ -n "${r}" ] && cd $(ghq root)/${r}
     zle reset-prompt
 }
 
 function peco_search_git_branch() {
-    local git_branch=$(git branch --format='%(refname:short)' | cut -d' ' -f 2 | sort | peco)
-    [ "${git_branch}" != "" ] && git checkout ${git_branch}
+    local r=$(git branch --format='%(refname:short)' | cut -d' ' -f 2 | sort | peco)
+    [ -n "${r}" ] && git checkout ${r}
     zle reset-prompt
 }
 
 function peco_search_history() {
     BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
     CURSOR=$#BUFFER
+    zle reset-prompt
+}
+
+function peco_search_find() {
+    local r=$(find . -type f | peco)
+    [ -n "${r}" ] && vim --not-a-term ${r}
+    zle reset-prompt
+}
+
+function peco_search_word() {
+    local r=$(find . -type f | peco)
+    [ -n "${r}" ] && vim --not-a-term ${r}
+    zle reset-prompt
+}
+
+function peco_search_word() {
+    local r=$(rg "${1}" ${2:-.} | peco)
+    [ -n "${r}" ] && vim --not-a-term ${r}
     zle reset-prompt
 }
 
@@ -65,5 +83,11 @@ bindkey '^B' peco_search_git_branch
 
 zle -N peco_search_history
 bindkey '^H' peco_search_history
+
+zle -N peco_search_find
+bindkey '^F' peco_search_find
+
+zle -N peco_search_word
+bindkey '^W' peco_search_word
 
 chpwd() { l }
