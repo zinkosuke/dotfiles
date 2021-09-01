@@ -23,4 +23,4 @@
 [ghq]
     root = ~/ghq
 [init]
-	defaultBranch = main
+    defaultBranch = main
