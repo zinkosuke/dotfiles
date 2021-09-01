@@ -61,12 +61,6 @@ function peco_search_find() {
 }
 
 function peco_search_word() {
-    local r=$(find . -type f | peco)
-    [ -n "${r}" ] && vim --not-a-term ${r}
-    zle reset-prompt
-}
-
-function peco_search_word() {
     local r=$(rg "${1}" ${2:-.} | peco)
     [ -n "${r}" ] && vim --not-a-term ${r}
     zle reset-prompt
