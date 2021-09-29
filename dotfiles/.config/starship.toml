@@ -1,8 +1,15 @@
-add_newline = true
+add_newline = false
 
 [character]
-success_symbol = "[>>>](bold green)"
-error_symbol = "[>>>](bold red)"
+success_symbol = "[>](bold green)"
+error_symbol = "[>](bold red)"
+
+[cmd_duration]
+min_time = 1
 
 [package]
 disabled = true
+
+[time]
+time_format = "%Y-%m-%dT%H:%M:%S"
+disabled = false
