@@ -1,16 +1,43 @@
 add_newline = true
 
+[aws]
+format = '[$symbol($profile )(\($region\) )(\[$duration\])]($style)'
+
 [character]
-success_symbol = "[>](bold green)"
-error_symbol = "[>](bold red)"
+success_symbol = '[>](bold green)'
+error_symbol = '[>](bold red)'
 
 [cmd_duration]
 min_time = 1
 
-[package]
+[gcloud]
+# format = '[$symbol$account(@$domain)(\($region\))]($style) '
 disabled = true
+
+[git_branch]
+format = '[$symbol$branch]($style) '
+symbol = '🌿 '
+
+[terraform]
+format = '[$symbol$workspace]($style) '
 
 [time]
 format = "[$time]($style) "
 time_format = "%Y-%m-%dT%H:%M:%S"
 disabled = false
+
+# disabled languages
+[golang]
+disabled = true
+[package]
+disabled = true
+[php]
+disabled = true
+[python]
+disabled = true
+[ruby]
+disabled = true
+[rust]
+disabled = true
+[scala]
+disabled = true
