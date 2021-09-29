@@ -1,4 +1,4 @@
-add_newline = false
+add_newline = true
 
 [character]
 success_symbol = "[>](bold green)"
@@ -11,5 +11,6 @@ min_time = 1
 disabled = true
 
 [time]
+format = "[$time]($style) "
 time_format = "%Y-%m-%dT%H:%M:%S"
 disabled = false
