@@ -43,7 +43,7 @@ function peco_search_ghq_look() {
 }
 
 function peco_search_git_branch() {
-    local r=$(git branch --format='%(refname:short)' | cut -d' ' -f 2 | sort | peco)
+    local r=$(git branch --format='%(refname:short)' | tr -d ' ' | sort | peco)
     [ -n "${r}" ] && git checkout ${r}
     zle reset-prompt
 }
