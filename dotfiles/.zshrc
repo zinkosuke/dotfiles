@@ -58,6 +58,10 @@ export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less -N'
 
+# AWS default.
+export AWS_DEFAULT_OUTPUT=json
+export AWS_DEFAULT_REGION=ap-northeast-1
+
 # Alias, Functions.
 . ~/.aliases
 . ~/.functions

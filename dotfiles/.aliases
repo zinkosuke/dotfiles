@@ -5,6 +5,7 @@ alias sed='gsed'
 alias v='vim -p'
 alias vd='vim -d'
 alias x='xargs'
+alias gopen='open -a "/Applications/Google Chrome.app"'
 
 # git.
 alias g='git'
