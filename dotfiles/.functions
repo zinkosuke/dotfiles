@@ -1,3 +1,5 @@
+chpwd() { l }
+
 function rl() {
     echo "Reload shell ${SHELL}"
     exec ${SHELL} -l
@@ -55,7 +57,7 @@ function peco_search_history() {
 }
 
 function peco_search_find() {
-    local r=$(find . -type f | peco)
+    local r=$(find . -type f | sort | peco)
     [ -n "${r}" ] && vim --not-a-term ${r}
     zle reset-prompt
 }
@@ -83,5 +85,3 @@ bindkey '^F' peco_search_find
 
 zle -N peco_search_word
 bindkey '^W' peco_search_word
-
-chpwd() { l }

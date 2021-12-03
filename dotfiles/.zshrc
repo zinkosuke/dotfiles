@@ -8,13 +8,22 @@ zmodload zsh/complist
 
 # Delimiters.
 autoload -Uz select-word-style; select-word-style default
-    zstyle ':zle:*' word-chars ' /=-;@:()[]{},.|'
+zstyle ':zle:*' word-chars ' /=-;@:()[]{},.|'
 zstyle ':zle:*' word-style unspecified
 setopt extended_glob         # Enable extended notation e.g. ls test/^*.txt
 setopt interactive_comments  # Comment in command line.
 
 # Plugins.
-. /usr/local/opt/zplug/init.zsh
+case "$(uname)" in
+    Darwin)
+        export ZPLUG_HOME=/usr/local/opt/zplug
+        ;;
+    Linux)
+        export ZPLUG_HOME=/home/linuxbrew/.linuxbrew/opt/zplug
+        alias zplug='zplug-env'
+        ;;
+esac
+. ${ZPLUG_HOME}/init.zsh
 zplug 'zsh-users/zsh-autosuggestions'
 zplug 'zsh-users/zsh-syntax-highlighting'
 if ! zplug check --verbose; then
@@ -58,11 +67,18 @@ export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less -N'
 
-# AWS default.
-export AWS_DEFAULT_OUTPUT=json
-export AWS_DEFAULT_REGION=ap-northeast-1
-
-# Alias, Functions.
+# Custom.
 . ~/.aliases
 . ~/.functions
 eval "$(starship init zsh)"
+case "$(uname)" in
+    Darwin)
+        ;;
+    Linux)
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        ;;
+esac
+
+# AWS default.
+export AWS_DEFAULT_OUTPUT=json
+export AWS_DEFAULT_REGION=ap-northeast-1
