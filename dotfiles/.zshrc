@@ -1,24 +1,10 @@
-. ~/.alias
+. ~/.commonrc
+
 export HISTFILE=~/.zsh_history
-export HISTSIZE=1000
-export SAVEHIST=1000
-export DIRSTACKSIZE=100
 
-export EDITOR='vim'
-export VISUAL='vim'
-export PAGER='bat'
-
-export AWS_DEFAULT_OUTPUT=json
-export AWS_DEFAULT_REGION=ap-northeast-1
-
-linuxbrew=/home/linuxbrew/.linuxbrew/bin/brew
-if [ -f ${linuxbrew} ]; then
-    eval "$(${linuxbrew} shellenv)"
-fi
-
-if [ -f ${linuxbrew} ]; then
+if [ -e /home/linuxbrew/.linuxbrew/opt/zplug ]; then
     export ZPLUG_HOME=/home/linuxbrew/.linuxbrew/opt/zplug
-elif [ "$(uname)" = 'Darwin' ]; then
+elif [ -e /usr/local/opt/zplug ]; then
     export ZPLUG_HOME=/usr/local/opt/zplug
 fi
 . ${ZPLUG_HOME}/init.zsh
