@@ -26,7 +26,9 @@ alias gfp='git fetch --prune'
 alias gg='git grep -n'
 alias gl="git log --graph --all --pretty=format:'%C(yellow)%h %C(cyan)%cd %C(reset)%s %C(red)%d %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=format:'%Y-%m-%d %H:%M:%S'"
 alias gla='git log --graph --all --abbrev-commit'
+alias glp='git log -p --follow'
 alias gm='git commit -m'
+alias gma='git commit --amend'
 alias gpl='git pull'
 alias gps='git push'
 alias gr='git reset'
@@ -35,16 +37,22 @@ alias gst='git stash'
 
 alias d='docker'
 alias db='docker build --force-rm --rm --no-cache'
-alias dc='docker-compose'
 alias de='docker exec -it'
 alias di='docker image ls'
 alias dn='docker network ls'
-alias dr='docker run -it --rm'
 alias dp='docker container ls -a'
+alias dr='docker run -it --rm'
 alias dv='docker volume ls'
+
+alias dc='docker-compose'
 alias dcb='docker-compose build --no-cache'
 alias dcd='docker-compose down -v'
 alias dce='docker-compose exec'
 alias dcp='docker-compose ps'
+alias dcr='docker-compose run --rm'
 alias dcu='docker-compose up'
-alias dcr='docker-compose restart'
+
+function rl() {
+    echo "Reload shell ${SHELL}"
+    exec ${SHELL} -l
+}

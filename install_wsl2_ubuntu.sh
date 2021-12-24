@@ -2,6 +2,8 @@
 set -euo pipefail
 cd "$(dirname "${0}")"
 
+# TODO awscliV2
+
 which brew || /bin/bash -c \
     "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -25,6 +27,7 @@ brew install \
     tmux \
     tree \
     vim \
+    watch \
     zplug \
     zsh
 brew upgrade
