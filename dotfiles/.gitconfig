@@ -8,7 +8,7 @@
     editor = vim
     excludesfile = ~/.gitignore
     ignorecase = false
-    pager = bat
+    pager = less -rN
     quotepath = false
 [diff]
     tool = vimdiff
