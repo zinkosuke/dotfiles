@@ -18,6 +18,7 @@ brew install \
     ghq \
     git \
     jq \
+    make \
     parquet-tools \
     peco \
     ripgrep \
