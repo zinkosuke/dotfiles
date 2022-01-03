@@ -2,12 +2,17 @@
 
 export HISTFILE=~/.zsh_history
 
-if [ -e /home/linuxbrew/.linuxbrew/opt/zplug ]; then
-    export ZPLUG_HOME=/home/linuxbrew/.linuxbrew/opt/zplug
-elif [ -e /usr/local/opt/zplug ]; then
-    export ZPLUG_HOME=/usr/local/opt/zplug
-fi
-. ${ZPLUG_HOME}/init.zsh
+for zplug_home in $(cat <<EOF
+/usr/local/opt/zplug
+/usr/share/zplug
+EOF
+); do
+    if [ -d ${zplug_home} ]; then
+        export ZPLUG_HOME=${zplug_home}
+        . ${ZPLUG_HOME}/init.zsh
+        break
+    fi
+done
 zplug 'zsh-users/zsh-autosuggestions'
 zplug 'zsh-users/zsh-syntax-highlighting'
 if ! zplug check --verbose; then

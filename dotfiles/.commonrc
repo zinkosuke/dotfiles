@@ -1,6 +1,6 @@
-linuxbrew=/home/linuxbrew/.linuxbrew/bin/brew
-if [ -f ${linuxbrew} ]; then
-    eval "$(${linuxbrew} shellenv)"
+if [ -x $(which go) ]; then
+    export GOPATH=~/go
+    export "PATH=$PATH:${GOPATH}/bin"
 fi
 
 export ZSH="$(which zsh)"
