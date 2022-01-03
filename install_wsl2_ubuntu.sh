@@ -4,6 +4,7 @@ cd "$(dirname "${0}")"
 
 # TODO parquet-tools
 USER_HOME=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f 6)
+USER_GRP=$(getent group ${SUDO_USER:-$USER} | cut -d: -f 3)
 
 apt update && apt install -y --no-install-recommends \
     bat \
@@ -22,6 +23,10 @@ apt update && apt install -y --no-install-recommends \
     zplug \
     zsh \
 && echo 'Install done!'
+
+# zplug.
+chgrp -R ${USER_GRP} /usr/share/zplug
+chmod -R g+w /usr/share/zplug
 
 # starship.
 sh -c "$(curl -fsSL https://starship.rs/install.sh)"
