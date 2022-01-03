@@ -74,3 +74,8 @@ function rl() {
     echo "Reload shell ${SHELL}"
     exec ${SHELL} -l
 }
+
+for key in $(ls -1 ~/.ssh | grep '\.pem$'); do
+    keychain -q ~/.ssh/${key}
+done
+. ~/.keychain/${HOST}-sh

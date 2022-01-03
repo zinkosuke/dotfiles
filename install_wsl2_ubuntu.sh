@@ -11,6 +11,7 @@ apt update && apt install -y --no-install-recommends \
     build-essential \
     git \
     jq \
+    keychain \
     make \
     peco \
     ripgrep \
