@@ -105,3 +105,4 @@ bindkey '^W' peco_search_word
 chpwd() { l }
 
 eval "$(starship init zsh)"
+eval $(ssh-agent)
