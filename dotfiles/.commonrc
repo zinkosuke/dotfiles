@@ -11,7 +11,7 @@ export DIRSTACKSIZE=100
 
 export EDITOR='vim'
 export VISUAL='vim'
-export PAGER='bat'
+export PAGER='less -rN'
 
 export AWS_DEFAULT_OUTPUT=json
 export AWS_DEFAULT_REGION=ap-northeast-1

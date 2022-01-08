@@ -15,6 +15,7 @@ apt update && apt install -y --no-install-recommends \
     keychain \
     make \
     peco \
+    postgresql-client \
     ripgrep \
     tmux \
     tree \
