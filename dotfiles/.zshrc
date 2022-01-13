@@ -73,7 +73,7 @@ function peco_search_git_branch() {
 zle -N peco_search_git_branch
 
 function peco_search_history() {
-    BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco)
+    BUFFER=$(history -n 1 | tac | peco)
     CURSOR=$#BUFFER
     zle reset-prompt
 }
