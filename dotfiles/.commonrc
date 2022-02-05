@@ -75,7 +75,9 @@ function rl() {
     exec ${SHELL} -l
 }
 
-for key in $(ls -1 ~/.ssh | grep '\.pem$'); do
-    keychain -q ~/.ssh/${key}
-done
-. ~/.keychain/${HOST}-sh
+if [ -x $(which keychain) ]; then
+    for key in $(ls -1 ~/.ssh | grep '\.pem$'); do
+        keychain -q ~/.ssh/${key}
+    done
+    . ~/.keychain/${HOST}-sh
+fi
