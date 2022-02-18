@@ -2,6 +2,7 @@ add_newline = true
 
 [aws]
 format = '[$symbol($profile )(\($region\) )(\[$duration\])]($style)'
+symbol = 'AWS:'
 
 [character]
 success_symbol = '[>](bold green)'
@@ -11,15 +12,15 @@ error_symbol = '[>](bold red)'
 min_time = 1
 
 [gcloud]
-# format = '[$symbol$account(@$domain)(\($region\))]($style) '
-disabled = true
+format = '[$symbol$account(@$domain)(\($region\))]($style) '
+symbol = 'GCP:'
 
 [git_branch]
-format = '[$symbol$branch]($style) '
-symbol = '🌿 '
+format = '[$branch]($style) '
 
 [terraform]
 format = '[$symbol$workspace]($style) '
+symbol = 'TF:'
 
 [time]
 format = "[$time]($style) "
@@ -28,6 +29,8 @@ disabled = false
 
 # disabled languages
 [golang]
+disabled = true
+[java]
 disabled = true
 [package]
 disabled = true
