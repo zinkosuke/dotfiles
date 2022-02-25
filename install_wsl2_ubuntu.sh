@@ -43,7 +43,7 @@ set +e; service docker start; set -e
 
 # docker-compose.
 DOCKER_COMPOSE_VERSION=1.29.2
-curl -Lf "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+curl -fsSL "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 # golang.
@@ -52,7 +52,7 @@ rm -rf \
     /usr/local/go \
     /usr/local/bin/go \
     /usr/local/bin/gofmt
-curl -Lf "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -C /usr/local -xz
+curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -C /usr/local -xz
 ln -sf /usr/local/go/bin/go /usr/local/bin/
 ln -sf /usr/local/go/bin/gofmt /usr/local/bin/
 export GOPATH=${USER_HOME}/go
@@ -64,7 +64,7 @@ go install github.com/x-motemen/ghq@latest
 
 # sops.
 SOPS_VERSION=v3.7.1
-curl -Lf "https://github.com/mozilla/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux" -o /usr/local/bin/sops
+curl -fsSL "https://github.com/mozilla/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux" -o /usr/local/bin/sops
 chmod +x /usr/local/bin/sops
 
 # awscliV2.
@@ -72,7 +72,7 @@ rm -rf \
     /usr/local/aws-cli \
     /usr/local/bin/aws \
     /usr/local/bin/aws_completer
-curl -Lf "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip
+curl -fsSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip
 unzip awscliv2.zip
 ./aws/install
 rm -rf awscliv2.zip aws
