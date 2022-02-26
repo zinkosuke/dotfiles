@@ -77,6 +77,10 @@ unzip awscliv2.zip
 ./aws/install
 rm -rf awscliv2.zip aws
 
+# aws-vault.
+curl -fsSL " https://github.com/99designs/aws-vault/releases/download/v6.5.0/aws-vault-linux-amd64" -o /usr/local/bin/aws-vault
+chmod +x /usr/local/bin/aws-vault
+
 # tfenv.
 rm -rf \
     ${USER_HOME}/.tfenv \
