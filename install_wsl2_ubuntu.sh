@@ -30,6 +30,20 @@ apt update && apt install -y --no-install-recommends \
 # starship.
 sh -c "$(curl -fsSL https://starship.rs/install.sh)"
 
+# ripgrep.
+RIPGREP_VERSION=13.0.0
+curl -fsSL -o ripgrep_amd64.deb \
+    "https://github.com/BurntSushi/ripgrep/releases/download/${RIPGREP_VERSION}/ripgrep_${RIPGREP_VERSION}_amd64.deb"
+dpkg -i ripgrep_amd64.deb
+rm ripgrep_amd64.deb
+
+# bat.
+BAT_VERSION=0.20.0
+curl -fsSL -o bat_amd64.deb \
+    "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb"
+dpkg -i bat_amd64.deb
+rm bat_amd64.deb
+
 # tmux plugins.
 rm -rf ${USER_HOME}/.tmux/plugins/tpm
 git clone https://github.com/tmux-plugins/tpm ${USER_HOME}/.tmux/plugins/tpm
@@ -43,7 +57,8 @@ set +e; service docker start; set -e
 
 # docker-compose.
 DOCKER_COMPOSE_VERSION=1.29.2
-curl -fsSL "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+curl -fsSL -o /usr/local/bin/docker-compose \
+    "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)"
 chmod +x /usr/local/bin/docker-compose
 
 # golang.
@@ -64,7 +79,8 @@ go install github.com/x-motemen/ghq@latest
 
 # sops.
 SOPS_VERSION=v3.7.1
-curl -fsSL "https://github.com/mozilla/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux" -o /usr/local/bin/sops
+curl -fsSL -o /usr/local/bin/sops \
+    "https://github.com/mozilla/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux"
 chmod +x /usr/local/bin/sops
 
 # awscliV2.
@@ -72,7 +88,8 @@ rm -rf \
     /usr/local/aws-cli \
     /usr/local/bin/aws \
     /usr/local/bin/aws_completer
-curl -fsSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip
+curl -fsSL -o awscliv2.zip \
+    "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
 unzip awscliv2.zip
 ./aws/install
 rm -rf awscliv2.zip aws
