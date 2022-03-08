@@ -12,7 +12,7 @@ error_symbol = '[>](bold red)'
 min_time = 1
 
 [gcloud]
-format = '[$symbol$account(@$domain)(\($region\))]($style) '
+format = '[$symbol$account(@$domain)(\($project\))]($style) '
 symbol = 'GCP:'
 
 [git_branch]
