@@ -61,6 +61,12 @@ curl -fsSL -o /usr/local/bin/docker-compose \
     "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)"
 chmod +x /usr/local/bin/docker-compose
 
+# hadolint.
+HADOLINT_VERSION=2.9.3
+curl -fsSL -o /usr/local/bin/hadolint \
+    "https://github.com/hadolint/hadolint/releases/download/v${HADOLINT_VERSION}/hadolint-Linux-x86_64"
+chmod +x /usr/local/bin/hadolint
+
 # golang.
 GO_VERSION=1.17.5
 rm -rf \
