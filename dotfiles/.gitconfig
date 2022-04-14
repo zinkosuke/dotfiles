@@ -24,3 +24,5 @@
     root = ~/ghq
 [init]
     defaultBranch = main
+[diff "sopsdiffer"]
+	textconv = sops -d

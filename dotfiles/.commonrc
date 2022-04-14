@@ -27,10 +27,11 @@ case "$(uname)" in
         ;;
 esac
 
-alias pt='parquet-tools'
 alias v='vim -p'
 alias vd='vim -d'
 alias x='xargs'
+
+alias pt='parquet-tools'
 
 alias g='git'
 alias ga='git add'
@@ -69,6 +70,10 @@ alias dce='docker-compose exec'
 alias dcp='docker-compose ps'
 alias dcr='docker-compose run --rm'
 alias dcu='docker-compose up'
+
+alias k='kubectl'
+
+alias tf='terraform'
 
 function rl() {
     echo "Reload shell ${SHELL}"
