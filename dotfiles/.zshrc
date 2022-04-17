@@ -48,9 +48,12 @@ setopt pushd_ignore_dups     # Ignore duplicates.
 setopt share_history         # Share history on multiple terminal.
 
 function peco_search_aws_profile() {
-    local r=$(grep '^\[.*\]' ~/.aws/credentials | tr -d '[]'| sort | peco)
+    local r=$(
+        cat ~/.aws/credentials ~/.aws/config no 2>/dev/null \
+        | grep '^\[.*\]' | tr -d '[]'| sort | peco
+    )
     if [ -n "${r}" ]; then
-        export AWS_PROFILE=${r}
+        export AWS_PROFILE="$(echo ${r} | sed -e 's/profile //')"
     else
         unset AWS_PROFILE
     fi
