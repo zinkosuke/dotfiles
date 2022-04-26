@@ -80,6 +80,10 @@ function rl() {
     exec ${SHELL} -l
 }
 
+function docker_clean() {
+    docker image ls --filter dangling=true --format '{{.ID}}' | xargs --no-run-if-empty docker image rm
+}
+
 if [ -x $(which keychain) ]; then
     for key in $(ls -1 ~/.ssh | grep '\.pem$'); do
         keychain -q ~/.ssh/${key}
