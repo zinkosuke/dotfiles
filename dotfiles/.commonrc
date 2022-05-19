@@ -13,9 +13,6 @@ export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less -rN'
 
-export AWS_DEFAULT_OUTPUT=json
-export AWS_DEFAULT_REGION=ap-northeast-1
-
 case "$(uname)" in
     Darwin)
         alias l='ls -lahFG'
@@ -89,4 +86,13 @@ if [ -x $(which keychain) ]; then
         keychain -q ~/.ssh/${key}
     done
     . ~/.keychain/${HOST}-sh
+fi
+
+export AWS_DEFAULT_OUTPUT=json
+export AWS_DEFAULT_REGION=ap-northeast-1
+
+if [ -x $(which gcloud) ]; then
+    gcloud_root=$(gcloud info --format='value(installation.sdk_root)')
+    . ${gcloud_root}/path.zsh.inc
+    . ${gcloud_root}/completion.zsh.inc
 fi
