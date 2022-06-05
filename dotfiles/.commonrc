@@ -71,6 +71,7 @@ alias dcu='docker-compose up'
 alias k='kubectl'
 
 alias tf='terraform'
+alias tff='terraform fmt -recursive'
 
 function rl() {
     echo "Reload shell ${SHELL}"
@@ -81,18 +82,19 @@ function docker_clean() {
     docker image ls --filter dangling=true --format '{{.ID}}' | xargs --no-run-if-empty docker image rm
 }
 
+export AWS_DEFAULT_OUTPUT=json
+export AWS_DEFAULT_REGION=ap-northeast-1
+
+export PATH=${PATH}:/usr/local/gcloud/google-cloud-sdk/bin
+# if [ -x $(which gcloud) ]; then
+#     gcloud_root=$(gcloud info --format='value(installation.sdk_root)')
+#     . ${gcloud_root}/path.zsh.inc
+#     . ${gcloud_root}/completion.zsh.inc
+# fi
+
 if [ -x $(which keychain) ]; then
     for key in $(ls -1 ~/.ssh | grep '\.pem$'); do
         keychain -q ~/.ssh/${key}
     done
     . ~/.keychain/${HOST}-sh
-fi
-
-export AWS_DEFAULT_OUTPUT=json
-export AWS_DEFAULT_REGION=ap-northeast-1
-
-if [ -x $(which gcloud) ]; then
-    gcloud_root=$(gcloud info --format='value(installation.sdk_root)')
-    . ${gcloud_root}/path.zsh.inc
-    . ${gcloud_root}/completion.zsh.inc
 fi

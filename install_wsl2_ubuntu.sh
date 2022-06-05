@@ -67,6 +67,11 @@ curl -fLsS -o /usr/local/bin/kubectl \
     "https://storage.googleapis.com/kubernetes-release/release/${}/bin/linux/amd64/kubectl"
 chmod +x /usr/local/bin/kubectl
 
+# minikube.
+curl -fLsS -o /usr/local/bin/minikube \
+    "https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64"
+chmod +x /usr/local/bin/minikube
+
 # hadolint.
 HADOLINT_VERSION=2.9.3
 curl -fLsS -o /usr/local/bin/hadolint \
