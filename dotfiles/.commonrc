@@ -4,7 +4,6 @@ if [ -x $(which go) ]; then
 fi
 
 export ZSH="$(which zsh)"
-
 export HISTSIZE=1000
 export SAVEHIST=1000
 export DIRSTACKSIZE=100
@@ -12,6 +11,12 @@ export DIRSTACKSIZE=100
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less -rN'
+
+alias v='vim -p'
+alias vd='vim -d'
+alias x='xargs'
+
+alias pt='parquet-tools'
 
 case "$(uname)" in
     Darwin)
@@ -24,12 +29,34 @@ case "$(uname)" in
         ;;
 esac
 
-alias v='vim -p'
-alias vd='vim -d'
-alias x='xargs'
+if [ -x $(which keychain) ]; then
+    for key in $(ls -1 ~/.ssh | grep '\.pem$'); do
+        keychain -q ~/.ssh/${key}
+    done
+    . ~/.keychain/${HOST}-sh
+fi
 
-alias pt='parquet-tools'
+function rl() {
+    echo "Reload shell ${SHELL}"
+    exec ${SHELL} -l
+}
 
+function peco_history() {
+    BUFFER=$(history -n 1 | tac | peco)
+    CURSOR=$#BUFFER
+    which zle && zle reset-prompt
+}
+
+function peco_find() {
+    local r=$(find . -type f | sort | peco)
+    [ -n "${r}" ] && vim --not-a-term ${r}
+    which zle && zle reset-prompt
+}
+
+
+##################################################
+# Git.
+##################################################
 alias g='git'
 alias ga='git add'
 alias gb='git branch'
@@ -51,6 +78,21 @@ alias gr='git reset'
 alias gs='git status -bsu'
 alias gst='git stash'
 
+function peco_ghq_look() {
+    local r=$(ghq list | sort | peco)
+    [ -n "${r}" ] && cd $(ghq root)/${r}
+    which zle && zle reset-prompt
+}
+
+function peco_git_branch() {
+    local r=$(git branch --format='%(refname:short)' | tr -d ' ' | sort | peco)
+    [ -n "${r}" ] && git checkout ${r}
+    which zle && zle reset-prompt
+}
+
+##################################################
+# Docker.
+##################################################
 alias d='docker'
 alias db='docker build --force-rm --rm --no-cache'
 alias de='docker exec -it'
@@ -69,32 +111,61 @@ alias dcr='docker-compose run --rm'
 alias dcu='docker-compose up'
 
 alias k='kubectl'
+alias kc='kubectl config'
+alias kg='kubectl get'
 
-alias tf='terraform'
-alias tff='terraform fmt -recursive'
-
-function rl() {
-    echo "Reload shell ${SHELL}"
-    exec ${SHELL} -l
+function mini() {
+    eval $(minikube -p minikube docker-env)
 }
 
 function docker_clean() {
     docker image ls --filter dangling=true --format '{{.ID}}' | xargs --no-run-if-empty docker image rm
 }
 
+
+##################################################
+# Terraform.
+##################################################
+alias tf='terraform'
+alias tff='terraform fmt -recursive'
+
+
+##################################################
+# AWS.
+##################################################
 export AWS_DEFAULT_OUTPUT=json
 export AWS_DEFAULT_REGION=ap-northeast-1
 
+alias awsme='aws sts get-caller-identity'
+
+function ecsin() {
+    local aws_region=${1:-${AWS_DEFAULT_REGION}}
+    local account_id=$(aws sts get-caller-identity --query 'Account' --output text)
+    aws ecr get-login-password --region ${aws_region} \
+    | docker login --username AWS --password-stdin \
+      ${account_id}.dkr.ecr.${aws_region}.amazonaws.com
+}
+
+function peco_aws_profile() {
+    local r=$(
+        cat ~/.aws/credentials ~/.aws/config 2>/dev/null \
+        | grep '^\[.*\]' | tr -d '[]'| sort | peco
+    )
+    if [ -n "${r}" ]; then
+        export AWS_PROFILE="$(echo ${r} | sed -e 's/profile //')"
+    else
+        unset AWS_PROFILE
+    fi
+    which zle && zle reset-prompt
+}
+
+##################################################
+# GCP.
+##################################################
 export PATH=${PATH}:/usr/local/gcloud/google-cloud-sdk/bin
+
 # if [ -x $(which gcloud) ]; then
-#     gcloud_root=$(gcloud info --format='value(installation.sdk_root)')
+#     local gcloud_root=$(gcloud info --format='value(installation.sdk_root)')
 #     . ${gcloud_root}/path.zsh.inc
 #     . ${gcloud_root}/completion.zsh.inc
 # fi
-
-if [ -x $(which keychain) ]; then
-    for key in $(ls -1 ~/.ssh | grep '\.pem$'); do
-        keychain -q ~/.ssh/${key}
-    done
-    . ~/.keychain/${HOST}-sh
-fi

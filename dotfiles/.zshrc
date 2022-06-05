@@ -47,68 +47,22 @@ setopt interactive_comments  # Comment in command line.
 setopt pushd_ignore_dups     # Ignore duplicates.
 setopt share_history         # Share history on multiple terminal.
 
-function peco_search_aws_profile() {
-    local r=$(
-        cat ~/.aws/credentials ~/.aws/config no 2>/dev/null \
-        | grep '^\[.*\]' | tr -d '[]'| sort | peco
-    )
-    if [ -n "${r}" ]; then
-        export AWS_PROFILE="$(echo ${r} | sed -e 's/profile //')"
-    else
-        unset AWS_PROFILE
-    fi
-    zle reset-prompt
-}
-zle -N peco_search_aws_profile
-
-function peco_search_ghq_look() {
-    local r=$(ghq list | sort | peco)
-    [ -n "${r}" ] && cd $(ghq root)/${r}
-    zle reset-prompt
-}
-zle -N peco_search_ghq_look
-
-function peco_search_git_branch() {
-    local r=$(git branch --format='%(refname:short)' | tr -d ' ' | sort | peco)
-    [ -n "${r}" ] && git checkout ${r}
-    zle reset-prompt
-}
-zle -N peco_search_git_branch
-
-function peco_search_history() {
-    BUFFER=$(history -n 1 | tac | peco)
-    CURSOR=$#BUFFER
-    zle reset-prompt
-}
-zle -N peco_search_history
-
-function peco_search_find() {
-    local r=$(find . -type f | sort | peco)
-    [ -n "${r}" ] && vim --not-a-term ${r}
-    zle reset-prompt
-}
-zle -N peco_search_find
-
-function peco_search_word() {
-    # TODO rgでいいか?
-    local r=$(rg "${1}" ${2:-.} | peco)
-    [ -n "${r}" ] && vim --not-a-term ${r}
-    zle reset-prompt
-}
-zle -N peco_search_word
-
 bindkey -v
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 
-bindkey '^A' peco_search_aws_profile
-bindkey '^G' peco_search_ghq_look
-bindkey '^B' peco_search_git_branch
-bindkey '^H' peco_search_history
-bindkey '^F' peco_search_find
-bindkey '^W' peco_search_word
+zle -N peco_aws_profile
+bindkey '^A' peco_aws_profile
+zle -N peco_ghq_look
+bindkey '^G' peco_ghq_look
+zle -N peco_git_branch
+bindkey '^B' peco_git_branch
+zle -N peco_history
+bindkey '^H' peco_history
+zle -N peco_find
+bindkey '^F' peco_find
 
 chpwd() { l }
 
