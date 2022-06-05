@@ -64,8 +64,15 @@ chmod +x /usr/local/bin/docker-compose
 # kubectl.
 KUBECTL_VERSION=v1.24.0
 curl -fLsS -o /usr/local/bin/kubectl \
-    "https://storage.googleapis.com/kubernetes-release/release/${}/bin/linux/amd64/kubectl"
+    "https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
 chmod +x /usr/local/bin/kubectl
+
+# Helm.
+HELM_VERSION=v3.9.0
+curl -fLsS "https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz" \
+    | tar -C /usr/local/bin -xz
+mv linux-amd64/helm /usr/local/bin
+rm -rf mv linux-amd64
 
 # minikube.
 curl -fLsS -o /usr/local/bin/minikube \
@@ -73,9 +80,9 @@ curl -fLsS -o /usr/local/bin/minikube \
 chmod +x /usr/local/bin/minikube
 
 # hadolint.
-HADOLINT_VERSION=2.9.3
+HADOLINT_VERSION=v2.9.3
 curl -fLsS -o /usr/local/bin/hadolint \
-    "https://github.com/hadolint/hadolint/releases/download/v${HADOLINT_VERSION}/hadolint-Linux-x86_64"
+    "https://github.com/hadolint/hadolint/releases/download/${HADOLINT_VERSION}/hadolint-Linux-x86_64"
 chmod +x /usr/local/bin/hadolint
 
 # golang.
@@ -84,7 +91,8 @@ rm -rf \
     /usr/local/go \
     /usr/local/bin/go \
     /usr/local/bin/gofmt
-curl -fLsS "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -C /usr/local -xz
+curl -fLsS "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" \
+    | tar -C /usr/local -xz
 ln -sf /usr/local/go/bin/go /usr/local/bin/
 ln -sf /usr/local/go/bin/gofmt /usr/local/bin/
 export GOPATH=${USER_HOME}/go
