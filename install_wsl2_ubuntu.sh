@@ -44,6 +44,14 @@ curl -fLsS -o bat_amd64.deb \
 dpkg -i bat_amd64.deb
 rm bat_amd64.deb
 
+# gh.
+GH_VERSION=2.12.1
+mkdir gh && curl -fLsS \
+    "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz" \
+    | tar -C gh -xz --strip-components 1
+mv gh/bin/gh /usr/local/bin
+rm -rf gh
+
 # tmux plugins.
 rm -rf ${USER_HOME}/.tmux/plugins/tpm
 git clone https://github.com/tmux-plugins/tpm ${USER_HOME}/.tmux/plugins/tpm
@@ -67,12 +75,13 @@ curl -fLsS -o /usr/local/bin/kubectl \
     "https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
 chmod +x /usr/local/bin/kubectl
 
-# Helm.
+# helm.
 HELM_VERSION=v3.9.0
-curl -fLsS "https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz" \
-    | tar -C /usr/local/bin -xz
-mv linux-amd64/helm /usr/local/bin
-rm -rf mv linux-amd64
+mkdir helm && curl -fLsS \
+    "https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz" \
+    | tar -C helm -xz --strip-components 1
+mv helm/helm /usr/local/bin/
+rm -rf helm
 
 # minikube.
 curl -fLsS -o /usr/local/bin/minikube \

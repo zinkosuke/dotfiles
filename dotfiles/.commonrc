@@ -111,8 +111,6 @@ alias dcr='docker-compose run --rm'
 alias dcu='docker-compose up'
 
 alias k='kubectl'
-alias kc='kubectl config'
-alias kg='kubectl get'
 
 function mini() {
     eval $(minikube -p minikube docker-env)
