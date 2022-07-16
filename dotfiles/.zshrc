@@ -67,3 +67,4 @@ bindkey '^F' peco_find
 chpwd() { l }
 
 eval "$(starship init zsh)"
+source <(kubectl completion zsh)
