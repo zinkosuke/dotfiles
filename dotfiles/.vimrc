@@ -117,6 +117,7 @@ if dein#load_state(s:dein_path)
   call dein#add('tpope/vim-surround')
   call dein#add('tpope/vim-repeat')
   call dein#add('kamykn/spelunker.vim')
+  call dein#add('elzr/vim-json')
   
   " Required:
   call dein#end()
@@ -239,3 +240,8 @@ endif
 nnoremap <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let NERDTreeShowHidden=1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" elzr/vim-json
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vim_json_syntax_conceal = 0
