@@ -136,6 +136,13 @@ export AWS_DEFAULT_REGION=ap-northeast-1
 
 alias awsme='aws sts get-caller-identity'
 
+function awsin() {
+    local role_arn=${AWS_PROFILE}
+    saml2aws login --skip-prompt --force \
+      --profile=${AWS_PROFILE} \
+      --role=${role_arn}
+}
+
 function ecsin() {
     local aws_region=${1:-${AWS_DEFAULT_REGION}}
     local account_id=$(aws sts get-caller-identity --query 'Account' --output text)
