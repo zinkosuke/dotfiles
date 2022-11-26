@@ -147,6 +147,15 @@ git clone https://github.com/tfutils/tfenv.git ${USER_HOME}/.tfenv
 ln -sf ${USER_HOME}/.tfenv/bin/tfenv /usr/local/bin/
 ln -sf ${USER_HOME}/.tfenv/bin/terraform /usr/local/bin/
 
+# tfnotify.
+TFNOTIFY_VERSION=0.7.5
+mkdir -p tfnotify
+curl -fLsS -o tfnotify/tfnotify.tar.gz \
+    "https://github.com/mercari/tfnotify/releases/download/v${TFNOTIFY_VERSION}/tfnotify_linux_amd64.tar.gz"
+tar -C tfnotify -zxvf tfnotify/tfnotify.tar.gz
+mv tfnotify/tfnotify /usr/local/bin/
+rm -rf tfnotify
+
 # XXX permissions.
 # docker.
 sudo usermod -aG docker ${USER}
