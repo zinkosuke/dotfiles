@@ -120,6 +120,18 @@ function docker_clean() {
     docker image ls --filter dangling=true --format '{{.ID}}' | xargs --no-run-if-empty docker image rm
 }
 
+function jupyter() {
+    docker run --rm -it \
+        -e aws_profile=${AWS_PROFILE} \
+        -v ${HOME}/.aws:/home/jovyan/.aws \
+        -v ${HOME}/.jupyter:/home/jovyan/.jupyter \
+        -v $(pwd):/home/jovyan/work \
+        -w /home/jovyan/work \
+        -p 65535:8888 \
+        jupyter/pyspark-notebook:latest \
+        start-notebook.sh --NotebookApp.token=""
+}
+
 
 ##################################################
 # Terraform.
