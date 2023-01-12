@@ -16,7 +16,13 @@ alias v='vim -p'
 alias vd='vim -d'
 alias x='xargs'
 
-alias pt='parquet-tools'
+# alias pt='parquet-tools'
+function pt() {
+    docker run --rm \
+        -v $(pwd):/work \
+        -w /work \
+        nathanhowell/parquet-tools:latest "${@}"
+}
 
 case "$(uname)" in
     Darwin)

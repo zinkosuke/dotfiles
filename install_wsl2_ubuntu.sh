@@ -2,7 +2,6 @@
 set -euxo pipefail
 cd "$(dirname "${0}")"
 
-# TODO parquet-tools
 USER=${SUDO_USER:-$USER}
 USER_HOME=$(getent passwd ${USER} | cut -d: -f 6)
 USER_GRP=$(getent group ${USER} | cut -d: -f 3)
