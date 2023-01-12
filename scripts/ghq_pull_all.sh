@@ -2,7 +2,7 @@
 #
 # Git pull all ghq repositories.
 #
-set -eu
+set -euo pipefail
 base_dir=$(cd $(dirname ${0}); pwd)
 
 function git_pull() {
@@ -16,4 +16,4 @@ function git_pull() {
 
 export -f git_pull
 
-ghq list | grep -v added | xargs -I% -n1 -P5 bash -c "git_pull %"
+ghq list | sort | xargs -I% -n1 -P5 bash -c "git_pull %"

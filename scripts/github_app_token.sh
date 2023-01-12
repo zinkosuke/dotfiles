@@ -2,7 +2,7 @@
 #
 # Get a GitHub Apps token.
 #
-set -eu
+set -euo pipefail
 base_dir=$(cd $(dirname ${0}); pwd)
 
 # Environments
