@@ -16,6 +16,7 @@ apt update && apt install -y --no-install-recommends \
     peco \
     postgresql-client \
     ripgrep \
+    shellcheck \
     tmux \
     tree \
     unzip \
