@@ -34,7 +34,7 @@ brew upgrade
 
 # tmux.
 tpm_dir=~/.tmux/plugins/tpm
-[ -d "${tpm_dir}" ] || git clone https://github.com/tmux-plugins/tpm ${tpm_dir}
+[ -d "${tpm_dir}" ] || git clone https://github.com/tmux-plugins/tpm "${tpm_dir}"
 
 # settings.
 defaults write com.apple.screencapture location ~/Downloads

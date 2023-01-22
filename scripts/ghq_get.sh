@@ -3,9 +3,9 @@
 # ghq get repositories.
 #
 set -euo pipefail
-base_dir=$(cd $(dirname ${0}); pwd)
+base_dir=$(cd "$(dirname "${0}")"; pwd)
 
-alias ghq=~/go/bin/ghq
+alias ghq='~/go/bin/ghq'
 
 function ghq_get () {
     # e.g. git@github.com:zinkosuke/dotfiles.git

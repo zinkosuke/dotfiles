@@ -3,8 +3,8 @@ set -euxo pipefail
 cd "$(dirname "${0}")"
 
 USER=${SUDO_USER:-$USER}
-USER_HOME=$(getent passwd ${USER} | cut -d: -f 6)
-USER_GRP=$(getent group ${USER} | cut -d: -f 3)
+USER_HOME=$(getent passwd "${USER}" | cut -d: -f 6)
+USER_GRP=$(getent group "${USER}" | cut -d: -f 3)
 
 apt update && apt install -y --no-install-recommends \
     bat \
@@ -27,6 +27,11 @@ apt update && apt install -y --no-install-recommends \
     zsh \
 && echo 'Install done!'
 
+# asdf
+mkdir -p "${USER_HOME}/.asdf"
+git clone https://github.com/asdf-vm/asdf.git "${USER_HOME}/.asdf" \
+    --branch v0.11.1
+
 # starship.
 sh -c "$(curl -fLsS https://starship.rs/install.sh)"
 
@@ -46,15 +51,16 @@ rm bat_amd64.deb
 
 # gh.
 GH_VERSION=2.12.1
-mkdir gh && curl -fLsS \
+mkdir gh
+curl -fLsS \
     "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz" \
-    | tar -C gh -xz --strip-components 1
+| tar -C gh -xz --strip-components 1
 mv gh/bin/gh /usr/local/bin
 rm -rf gh
 
 # tmux plugins.
-rm -rf ${USER_HOME}/.tmux/plugins/tpm
-git clone https://github.com/tmux-plugins/tpm ${USER_HOME}/.tmux/plugins/tpm
+rm -rf "${USER_HOME}/.tmux/plugins/tpm"
+git clone https://github.com/tmux-plugins/tpm "${USER_HOME}/.tmux/plugins/tpm"
 
 # docker.
 [ -e /usr/share/keyrings/docker-archive-keyring.gpg ] || curl -fLsS https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -123,16 +129,16 @@ rm -rf \
     /usr/local/bin/aws \
     /usr/local/bin/aws_completer
 curl -fLsS -o awscliv2.zip \
-    "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+    https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 unzip awscliv2.zip
 ./aws/install
 rm -rf awscliv2.zip aws
 
 # gcloud.
 rm -rf /usr/local/gcloud
-rm -rf ${USER_HOME}/.config/gcloud
+rm -rf "${USER_HOME}/.config/gcloud"
 curl -fLsS -o gcloud.tar.gz \
-    "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-370.0.0-linux-x86_64.tar.gz"
+    https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-370.0.0-linux-x86_64.tar.gz
 mkdir -p /usr/local/gcloud
 tar -C /usr/local/gcloud -xvf gcloud.tar.gz
 /usr/local/gcloud/google-cloud-sdk/install.sh -q
@@ -140,12 +146,12 @@ rm gcloud.tar.gz
 
 # tfenv.
 rm -rf \
-    ${USER_HOME}/.tfenv \
+    "${USER_HOME}/.tfenv" \
     /usr/local/bin/terraform \
     /usr/local/bin/tfenv
-git clone https://github.com/tfutils/tfenv.git ${USER_HOME}/.tfenv
-ln -sf ${USER_HOME}/.tfenv/bin/tfenv /usr/local/bin/
-ln -sf ${USER_HOME}/.tfenv/bin/terraform /usr/local/bin/
+git clone https://github.com/tfutils/tfenv.git "${USER_HOME}/.tfenv"
+ln -sf "${USER_HOME}/.tfenv/bin/tfenv" /usr/local/bin/
+ln -sf "${USER_HOME}/.tfenv/bin/terraform" /usr/local/bin/
 
 # tfnotify.
 TFNOTIFY_VERSION=0.7.5
@@ -158,7 +164,7 @@ rm -rf tfnotify
 
 # XXX permissions.
 # docker.
-sudo usermod -aG docker ${USER}
+sudo usermod -aG docker "${USER}"
 # zplug.
-chgrp -R ${USER_GRP} /usr/share/zplug
+chgrp -R "${USER_GRP}" /usr/share/zplug
 chmod -R g+w /usr/share/zplug

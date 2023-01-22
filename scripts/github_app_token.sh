@@ -3,14 +3,14 @@
 # Get a GitHub Apps token.
 #
 set -euo pipefail
-base_dir=$(cd $(dirname ${0}); pwd)
+cd "$(dirname "${0}")"
 
 # Environments
-github_apps_id_path=${GITHUB_APPS_ID_PATH}
-github_apps_pem_path=${GITHUB_APPS_PEM_PATH}
+[[ -f ${GITHUB_APPS_ID_PATH} ]] || exit 1
+[[ -f ${GITHUB_APPS_PEM_PATH} ]] || exit 1
 
 # Main
-github_app_id=$(cat "${github_apps_id_path}" | jq -r '.GITHUB_APP_ID')
+github_app_id=$(jq -r '.GITHUB_APP_ID' < "${GITHUB_APPS_ID_PATH}")
 
 now=$(date "+%s")
 jwt_header=$(jq -c <<EOF | base64 -w 0
@@ -22,8 +22,8 @@ EOF
 )
 jwt_payload=$(jq -c <<EOF | base64 -w 0
 {
-  "iat": $((${now} - 60)),
-  "exp": $((${now} + 600)),
+  "iat": $((now - 60)),
+  "exp": $((now + 600)),
   "iss": ${github_app_id}
 }
 EOF
@@ -32,7 +32,7 @@ EOF
 jwt_raw_token="${jwt_header}.${jwt_payload}"
 jwt_signed_token=$(
     echo -n "${jwt_raw_token}" \
-    | openssl dgst -binary -sha256 -sign "${github_apps_pem_path}" \
+    | openssl dgst -binary -sha256 -sign "${GITHUB_APPS_PEM_PATH}" \
     | base64 -w 0
 )
 jwt_token="${jwt_raw_token}.${jwt_signed_token}"
@@ -53,4 +53,4 @@ access_token=$(
     | jq -r '.token'
 )
 
-echo ${access_token}
+echo "${access_token}"

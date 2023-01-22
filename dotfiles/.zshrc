@@ -7,9 +7,9 @@ for zplug_home in $(cat <<EOF
 /usr/share/zplug
 EOF
 ); do
-    if [ -d ${zplug_home} ]; then
-        export ZPLUG_HOME=${zplug_home}
-        . ${ZPLUG_HOME}/init.zsh
+    if [ -d "${zplug_home}" ]; then
+        export ZPLUG_HOME="${zplug_home}"
+        . "${ZPLUG_HOME}/init.zsh"
         break
     fi
 done
@@ -67,4 +67,5 @@ bindkey '^F' peco_find
 chpwd() { l }
 
 eval "$(starship init zsh)"
-source <(kubectl completion zsh)
+. <(kubectl completion zsh)
+. "${HOME}/.asdf/asdf.sh"
