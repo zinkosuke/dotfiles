@@ -2,8 +2,6 @@
 set -euo pipefail
 cd "$(dirname "${0}")"
 
-# target=${1}
-# dotfiles=${target}_dotfiles
 dotfiles=dotfiles
 
 if [[ ! -d ${dotfiles} ]]; then
@@ -11,8 +9,8 @@ if [[ ! -d ${dotfiles} ]]; then
     exit 1
 fi
 
-FILES=$(ls -1a "${dotfiles}" | grep -E '\.[^\.]+')
-for f in ${FILES}; do
+for f in dotfiles/.*; do
+    [[ ${f: -1} = '.' ]] && continue
     # rm -f ~/${f}
     if [[ -e ${HOME}/${f} ]]; then
         echo "Exists: (skip) ${HOME}/${f}"
