@@ -14,7 +14,7 @@ function ghq_get () {
 
 export -f ghq_get
 
-cat "${base_dir}/.repolist" | xargs -I% -n1 -P5 bash -c "ghq_get %"
+< "${base_dir}/.repolist" xargs -I% -n1 -P5 bash -c "ghq_get %"
 
 # TODO forked
 # for upstream in $(cat <<EOF
