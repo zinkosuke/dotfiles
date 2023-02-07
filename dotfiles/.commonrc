@@ -1,9 +1,10 @@
-if [ -x $(which go) ]; then
-    export GOPATH=~/go
-    export "PATH=$PATH:${GOPATH}/bin"
+if [ -x "$(command -v go)" ]; then
+    export GOPATH=${HOME}/go
+    export PATH="$PATH:${GOPATH}/bin"
 fi
 
-export ZSH="$(which zsh)"
+ZSH=$(command -v zsh)
+export ZSH
 export HISTSIZE=1000
 export SAVEHIST=1000
 export DIRSTACKSIZE=100
@@ -19,7 +20,7 @@ alias x='xargs'
 # alias pt='parquet-tools'
 function pt() {
     docker run --rm \
-        -v $(pwd):/work \
+        -v "$(pwd):/work" \
         -w /work \
         nathanhowell/parquet-tools:latest "${@}"
 }
@@ -35,28 +36,34 @@ case "$(uname)" in
         ;;
 esac
 
-if [ -x $(which keychain) ]; then
-    for key in $(ls -1 ~/.ssh | grep '\.pem$'); do
-        keychain -q ~/.ssh/${key}
+if [ -x "$(command -v keychain)" ]; then
+    for key in "${HOME}"/.ssh/*.pem; do
+        keychain -q "${key}"
     done
-    . ~/.keychain/${HOST}-sh
+    # shellcheck disable=SC1090
+    . "${HOME}/.keychain/${HOST}-sh"
 fi
 
 function rl() {
     echo "Reload shell ${SHELL}"
-    exec ${SHELL} -l
+    exec "${SHELL}" -l
 }
 
 function peco_history() {
+    # shellcheck disable=SC2034
     BUFFER=$(history -n 1 | tac | peco)
+    # shellcheck disable=SC2034
     CURSOR=$#BUFFER
-    which zle && zle reset-prompt
+    command -v zle && zle reset-prompt
 }
 
 function peco_find() {
-    local r=$(find . -type f | sort | peco)
-    [ -n "${r}" ] && vim --not-a-term ${r}
-    which zle && zle reset-prompt
+    local r
+    r=$(find . -type f | sort | peco)
+    if [ -n "${r}" ]; then
+        vim --not-a-term "${r}"
+    fi
+    command -v zle && zle reset-prompt
 }
 
 
@@ -85,15 +92,21 @@ alias gs='git status -bsu'
 alias gst='git stash'
 
 function peco_ghq_look() {
-    local r=$(ghq list | sort | peco)
-    [ -n "${r}" ] && cd $(ghq root)/${r}
-    which zle && zle reset-prompt
+    local r
+    r=$(ghq list | sort | peco)
+    if [ -n "${r}" ]; then
+        cd "$(ghq root)/${r}" || exit 1
+    fi
+    command -v zle && zle reset-prompt
 }
 
 function peco_git_branch() {
-    local r=$(git branch --format='%(refname:short)' | tr -d ' ' | sort | peco)
-    [ -n "${r}" ] && git checkout ${r}
-    which zle && zle reset-prompt
+    local r
+    r=$(git branch --format='%(refname:short)' | tr -d ' ' | sort | peco)
+    if [ -n "${r}" ]; then
+        git checkout "${r}"
+    fi
+    command -v zle && zle reset-prompt
 }
 
 ##################################################
@@ -119,11 +132,12 @@ alias dcu='docker-compose up'
 alias k='kubectl'
 
 function mini() {
-    eval $(minikube -p minikube docker-env)
+    eval "$(minikube -p minikube docker-env)"
 }
 
 function docker_clean() {
-    docker image ls --filter dangling=true --format '{{.ID}}' | xargs --no-run-if-empty docker image rm
+    docker image ls --filter dangling=true --format '{{.ID}}' \
+    | xargs --no-run-if-empty docker image rm
 }
 
 
@@ -143,40 +157,43 @@ export AWS_DEFAULT_REGION=ap-northeast-1
 alias awsme='aws sts get-caller-identity'
 
 function awsin() {
-    local role_arn=${AWS_PROFILE}
     saml2aws login --skip-prompt --force \
-      --profile=${AWS_PROFILE} \
-      --role=${role_arn}
+      --profile="${AWS_PROFILE}" \
+      --role="${AWS_PROFILE}"
 }
 
 function ecsin() {
-    local aws_region=${1:-${AWS_DEFAULT_REGION}}
-    local account_id=$(aws sts get-caller-identity --query 'Account' --output text)
-    aws ecr get-login-password --region ${aws_region} \
+    local aws_region account_id
+    aws_region=${1:-${AWS_DEFAULT_REGION}}
+    account_id=$(aws sts get-caller-identity --query 'Account' --output text)
+    aws ecr get-login-password --region "${aws_region}" \
     | docker login --username AWS --password-stdin \
-      ${account_id}.dkr.ecr.${aws_region}.amazonaws.com
+        "${account_id}.dkr.ecr.${aws_region}.amazonaws.com"
 }
 
 function peco_aws_profile() {
-    local r=$(
+    local r
+    r=$(
         cat ~/.aws/credentials ~/.aws/config 2>/dev/null \
         | grep '^\[.*\]' | tr -d '[]'| sort | peco
     )
     if [ -n "${r}" ]; then
-        export AWS_PROFILE="$(echo ${r} | sed -e 's/profile //')"
+        export AWS_PROFILE="${r//profile /}"
     else
         unset AWS_PROFILE
     fi
-    which zle && zle reset-prompt
+    command -v zle && zle reset-prompt
 }
 
 ##################################################
 # GCP.
 ##################################################
-export PATH=${PATH}:/usr/local/gcloud/google-cloud-sdk/bin
+export PATH="${PATH}:/usr/local/gcloud/google-cloud-sdk/bin"
 
-# if [ -x $(which gcloud) ]; then
-#     local gcloud_root=$(gcloud info --format='value(installation.sdk_root)')
-#     . ${gcloud_root}/path.zsh.inc
-#     . ${gcloud_root}/completion.zsh.inc
+# if [ -x "$(command -v gcloud)" ]; then
+#     gcloud_root=$(gcloud info --format='value(installation.sdk_root)')
+#     # shellcheck disable=SC1090
+#     . "${gcloud_root}/path.zsh.inc"
+#     # shellcheck disable=SC1090
+#     . "${gcloud_root}/completion.zsh.inc"
 # fi
