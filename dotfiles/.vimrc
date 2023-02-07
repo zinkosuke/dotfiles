@@ -118,6 +118,7 @@ if dein#load_state(s:dein_path)
   call dein#add('tpope/vim-repeat')
   call dein#add('kamykn/spelunker.vim')
   call dein#add('elzr/vim-json')
+  call dein#add('scrooloose/syntastic')
   
   " Required:
   call dein#end()
@@ -245,3 +246,15 @@ let NERDTreeShowHidden=1
 " elzr/vim-json
 """"""""""""""""""""""""""""""""""""""""""""""""""
 let g:vim_json_syntax_conceal = 0
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" syntastic
+""""""""""""""""""""""""""""""""""""""""""""""""""
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
