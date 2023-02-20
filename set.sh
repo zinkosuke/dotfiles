@@ -10,6 +10,7 @@ if [[ ! -d ${dotfiles} ]]; then
 fi
 
 for f in dotfiles/.*; do
+    f=$(basename "${f}")
     [[ ${f: -1} = '.' ]] && continue
     # rm -f ~/${f}
     if [[ -e ${HOME}/${f} ]]; then
