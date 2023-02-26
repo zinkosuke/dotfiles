@@ -2,7 +2,7 @@
 set -euo pipefail
 cd "$(dirname "${0}")"
 
-# TODO dmg: awscliV2, Docker
+# TODO dmg: awscliV2, Docker, gcloud
 
 which brew || /bin/bash -c \
     "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -18,9 +18,9 @@ brew install \
     git \
     gnu-sed \
     jq \
-    parquet-tools \
     peco \
     ripgrep \
+    shellcheck \
     sops \
     starship \
     tfenv \
