@@ -1,8 +1,9 @@
 add_newline = true
 
 [aws]
-format = '[$symbol($profile )(\($region\) )(\[$duration\])]($style)'
-symbol = 'AWS:'
+disabled = true
+# format = '[$symbol($profile )(\($region\) )(\[$duration\])]($style)'
+# symbol = 'AWS:'
 
 [character]
 success_symbol = '[>](bold green)'
@@ -11,16 +12,19 @@ error_symbol = '[>](bold red)'
 [cmd_duration]
 min_time = 1
 
+[env_var.AWS_PROFILE]
+format = '[AWS_PROFILE=$env_value](bold red)'
+
 [gcloud]
 format = '[$symbol$account(@$domain)(\($project\))]($style) '
-symbol = 'GCP:'
+symbol = 'GCP='
 
 [git_branch]
 format = '[$branch]($style) '
 
 [terraform]
 format = '[$symbol$workspace]($style) '
-symbol = 'TF:'
+symbol = 'TF='
 
 [time]
 format = "[$time]($style) "
