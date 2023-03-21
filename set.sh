@@ -12,11 +12,11 @@ fi
 for f in dotfiles/.*; do
     f=$(basename "${f}")
     [[ ${f: -1} = '.' ]] && continue
-    # rm -f ~/${f}
     if [[ -e ${HOME}/${f} ]]; then
         echo "Exists: (skip) ${HOME}/${f}"
-    else
-        echo "Link: ${HOME}/${f}"
-        ln -sf "$(pwd)/${dotfiles}/${f}" "${HOME}/${f}"
+        continue
+        # rm -f ~/${f}
     fi
+    echo "Link: ${HOME}/${f}"
+    ln -sf "$(pwd)/${dotfiles}/${f}" "${HOME}/${f}"
 done
