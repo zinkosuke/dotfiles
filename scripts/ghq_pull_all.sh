@@ -4,7 +4,9 @@
 #
 set -euo pipefail
 cd "$(dirname "${0}")"
-
+# ----- Environments -----
+# ----- Args -----
+# ----- Main -----
 function git_pull() {
     # TODO forked
     set -eu

@@ -4,7 +4,9 @@
 #
 set -euo pipefail
 base_dir=$(cd "$(dirname "${0}")"; pwd)
-
+# ----- Environments -----
+# ----- Args -----
+# ----- Main -----
 alias ghq='~/go/bin/ghq'
 
 function ghq_get () {

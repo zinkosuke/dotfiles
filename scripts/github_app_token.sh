@@ -4,12 +4,11 @@
 #
 set -euo pipefail
 cd "$(dirname "${0}")"
-
-# Environments
-[[ -f ${GITHUB_APPS_ID_PATH} ]] || exit 1
-[[ -f ${GITHUB_APPS_PEM_PATH} ]] || exit 1
-
-# Main
+# ----- Environments -----
+GITHUB_APPS_ID_PATH=${GITHUB_APPS_ID_PATH}
+GITHUB_APPS_PEM_PATH=${GITHUB_APPS_PEM_PATH}
+# ----- Args -----
+# ----- Main -----
 github_app_id=$(jq -r '.GITHUB_APP_ID' < "${GITHUB_APPS_ID_PATH}")
 
 now=$(date "+%s")
