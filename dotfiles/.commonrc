@@ -1,38 +1,33 @@
-if [ -x "$(command -v go)" ]; then
-    export GOPATH=${HOME}/go
-    export PATH="$PATH:${GOPATH}/bin"
-fi
-
 ZSH=$(command -v zsh)
 export ZSH
 export HISTSIZE=1000
 export SAVEHIST=1000
 export DIRSTACKSIZE=100
-
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less -rN'
 
+if [ -x "$(command -v go)" ]; then
+    export GOPATH=${HOME}/go
+    export PATH="$PATH:${GOPATH}/bin"
+fi
+
 alias v='vim -p'
 alias vd='vim -d'
 alias x='xargs'
-
-# alias pt='parquet-tools'
-function pt() {
-    docker run --rm \
-        -v "$(pwd):/work" \
-        -w /work \
-        nathanhowell/parquet-tools:latest "${@}"
-}
 
 case "$(uname)" in
     Darwin)
         alias l='ls -lahFG'
         alias sed='gsed'
         alias gopen='open -a "/Applications/Google Chrome.app"'
+        alias c='pbcopy'
         ;;
     Linux)
         alias l='ls -lahF --color=auto'
+        if [ -x "$(command -v clip.exe)" ]; then
+            alias c='iconv -t sjis | clip.exe'
+        fi
         ;;
 esac
 
@@ -44,12 +39,20 @@ if [ -x "$(command -v keychain)" ]; then
     . "${HOME}/.keychain/${HOST}-sh"
 fi
 
-function rl() {
+pt() {
+    # alias pt='parquet-tools'
+    docker run --rm \
+        -v "$(pwd):/work" \
+        -w /work \
+        nathanhowell/parquet-tools:latest "${@}"
+}
+
+rl() {
     echo "Reload shell ${SHELL}"
     exec "${SHELL}" -l
 }
 
-function peco_history() {
+peco_history() {
     # shellcheck disable=SC2034
     BUFFER=$(history -n 1 | tac | peco)
     # shellcheck disable=SC2034
@@ -57,7 +60,7 @@ function peco_history() {
     command -v zle && zle reset-prompt
 }
 
-function peco_find() {
+peco_find() {
     local r
     r=$(find . -type f | sort | peco)
     if [ -n "${r}" ]; then
@@ -67,8 +70,9 @@ function peco_find() {
 }
 
 
+
 ##################################################
-# Git.
+# Git
 ##################################################
 alias g='git'
 alias ga='git add'
@@ -91,7 +95,7 @@ alias gr='git reset'
 alias gs='git status -bsu'
 alias gst='git stash'
 
-function peco_ghq_look() {
+peco_ghq_look() {
     local r
     r=$(ghq list | sort | peco)
     if [ -n "${r}" ]; then
@@ -100,7 +104,7 @@ function peco_ghq_look() {
     command -v zle && zle reset-prompt
 }
 
-function peco_git_branch() {
+peco_git_branch() {
     local r
     r=$(git branch --format='%(refname:short)' | tr -d ' ' | sort | peco)
     if [ -n "${r}" ]; then
@@ -109,8 +113,9 @@ function peco_git_branch() {
     command -v zle && zle reset-prompt
 }
 
+
 ##################################################
-# Docker.
+# Docker
 ##################################################
 alias d='docker'
 alias db='docker build --force-rm --rm --no-cache'
@@ -131,38 +136,38 @@ alias dcu='docker-compose up'
 
 alias k='kubectl'
 
-function mini() {
+mini() {
     eval "$(minikube -p minikube docker-env)"
 }
 
-function docker_clean() {
+docker_clean() {
     docker image ls --filter dangling=true --format '{{.ID}}' \
     | xargs --no-run-if-empty docker image rm
 }
 
 
 ##################################################
-# Terraform.
+# Terraform
 ##################################################
 alias tf='terraform'
 alias tff='terraform fmt -recursive'
 
 
 ##################################################
-# AWS.
+# AWS
 ##################################################
 export AWS_DEFAULT_OUTPUT=json
 export AWS_DEFAULT_REGION=ap-northeast-1
 
 alias awsme='aws sts get-caller-identity'
 
-function awsin() {
+awsin () {
     saml2aws login --skip-prompt --force \
       --profile="${AWS_PROFILE}" \
       --role="${AWS_PROFILE}"
 }
 
-function ecsin() {
+ecsin() {
     local aws_region account_id
     aws_region=${1:-${AWS_DEFAULT_REGION}}
     account_id=$(aws sts get-caller-identity --query 'Account' --output text)
@@ -171,7 +176,7 @@ function ecsin() {
         "${account_id}.dkr.ecr.${aws_region}.amazonaws.com"
 }
 
-function peco_aws_profile() {
+peco_aws_profile() {
     local r
     r=$(
         cat ~/.aws/credentials ~/.aws/config 2>/dev/null \
@@ -186,7 +191,7 @@ function peco_aws_profile() {
 }
 
 ##################################################
-# GCP.
+# GCP
 ##################################################
 export PATH="${PATH}:/usr/local/gcloud/google-cloud-sdk/bin"
 
