@@ -127,7 +127,7 @@ alias dr='docker run -it --rm'
 alias dv='docker volume ls'
 
 alias dc='docker-compose'
-alias dcb='docker-compose build --no-cache'
+alias dcb='docker-compose build --no-cache --force-rm'
 alias dcd='docker-compose down -v'
 alias dce='docker-compose exec'
 alias dcp='docker-compose ps'
