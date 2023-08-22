@@ -10,9 +10,9 @@ function install_docker() {
 }
 
 function install_docker_compose() {
-    DOCKER_COMPOSE_VERSION=1.29.2
+    DOCKER_COMPOSE_VERSION=v2.20.3
     curl -fLsS -o /usr/local/bin/docker-compose \
-        "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)"
+        "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m)"
     chmod +x /usr/local/bin/docker-compose
 }
 
