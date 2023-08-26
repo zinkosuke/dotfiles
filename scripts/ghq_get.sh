@@ -19,7 +19,7 @@ export -f ghq_get
 < "${base_dir}/.repolist" xargs -I% -n1 -P5 bash -c "ghq_get %"
 
 # TODO forked
-# for upstream in $(cat <<EOF
+# for upstream in $(cat << EOF
 # https://github.com/encode/django-rest-framework.git
 # EOF
 # ); do

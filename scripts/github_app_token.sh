@@ -15,14 +15,14 @@ GITHUB_APPS_PEM_PATH=${GITHUB_APPS_PEM_PATH}
 # Main
 ##############################
 now=$(date "+%s")
-jwt_header=$(jq -c <<EOF | base64 -w 0
+jwt_header=$(jq -c << EOF | base64 -w 0
 {
   "alg": "RS256",
   "typ": "JWT"
 }
 EOF
 )
-jwt_payload=$(jq -c <<EOF | base64 -w 0
+jwt_payload=$(jq -c << EOF | base64 -w 0
 {
   "iat": $((now - 60)),
   "exp": $((now + 600)),
