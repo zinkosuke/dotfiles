@@ -1,7 +1,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Basic settings.
 """"""""""""""""""""""""""""""""""""""""""""""""""
-
 syntax enable
 set autoread " :checktime
 set noswapfile
@@ -12,39 +11,32 @@ set fileformats=unix,mac,dos
 set wildmenu
 set term=screen-256color
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Key bind settings.
 """"""""""""""""""""""""""""""""""""""""""""""""""
-
 " Move window.
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
-
 " Tabs.
 nnoremap sm gt
 nnoremap sn gT
 nnoremap st :<C-u>tabnew<CR>
-
 " Resize window.
 nnoremap sj <C-w>+
 nnoremap sk <C-w>-
 nnoremap sh <C-w>>
 nnoremap sl <C-w><
 nnoremap s= <C-w>=
-
 " Others.
 nnoremap Y y$
 :command Hd diffsplit
 :command Vd vertical diffsplit
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Indent settings.
 """"""""""""""""""""""""""""""""""""""""""""""""""
-
 set autoindent
 set smartindent
 set expandtab
@@ -53,11 +45,9 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Cursor and display settings.
 """"""""""""""""""""""""""""""""""""""""""""""""""
-
 set ambiwidth=double
 set number
 set ruler
@@ -82,6 +72,13 @@ set hlsearch
 set showmatch matchtime=1
 nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" vimdiff settings.
+""""""""""""""""""""""""""""""""""""""""""""""""""
+highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=22
+highlight DiffDelete cterm=bold ctermfg=10 ctermbg=52
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=17
+highlight DiffText   cterm=bold ctermfg=10 ctermbg=21
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin dein.vim.
@@ -209,7 +206,6 @@ endif
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/Shougo/neosnippet.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -233,7 +229,6 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/scrooloose/nerdtree
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -253,10 +248,8 @@ let g:vim_json_syntax_conceal = 0
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-
 let g:syntastic_ignore_files = ['.php', '.env']
