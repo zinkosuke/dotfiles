@@ -47,12 +47,12 @@ pt() {
         nathanhowell/parquet-tools:latest "${@}"
 }
 
-rl() {
+function rl() {
     echo "Reload shell ${SHELL}"
     exec "${SHELL}" -l
 }
 
-peco_history() {
+function peco_history() {
     # shellcheck disable=SC2034
     BUFFER=$(history -n 1 | tac | peco)
     # shellcheck disable=SC2034
@@ -60,7 +60,7 @@ peco_history() {
     command -v zle && zle reset-prompt
 }
 
-peco_find() {
+function peco_find() {
     local r
     r=$(find . -type f | sort | peco)
     if [ -n "${r}" ]; then
@@ -68,7 +68,6 @@ peco_find() {
     fi
     command -v zle && zle reset-prompt
 }
-
 
 
 ##################################################
@@ -85,17 +84,19 @@ alias gf='git fetch'
 alias gfp='git fetch --prune'
 alias gg='git grep -n'
 alias gl="git log --graph --all --pretty=format:'%C(yellow)%h %C(cyan)%cd %C(reset)%s %C(red)%d %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=format:'%Y-%m-%d %H:%M:%S'"
-alias gla='git log --graph --all --abbrev-commit'
 alias glp='git log -p --follow'
 alias gm='git commit -m'
 alias gma='git commit --amend'
 alias gpl='git pull'
 alias gps='git push'
 alias gr='git reset'
+alias grh='git reset --hard'
+alias grs='git reset --soft'
 alias gs='git status -bsu'
 alias gst='git stash'
+alias gw='git switch'
 
-peco_ghq_look() {
+function peco_ghq_look() {
     local r
     r=$(ghq list | sort | peco)
     if [ -n "${r}" ]; then
@@ -104,13 +105,20 @@ peco_ghq_look() {
     command -v zle && zle reset-prompt
 }
 
-peco_git_branch() {
+function peco_git_branch() {
     local r
     r=$(git branch --format='%(refname:short)' | tr -d ' ' | sort | peco)
     if [ -n "${r}" ]; then
-        git checkout "${r}"
+        git switch "${r}"
     fi
     command -v zle && zle reset-prompt
+}
+
+function gxx() {
+    local s
+    s=${1:-'.*'}
+    xpanes -I% -c 'cd "$(ghq root)/%"' \
+        $(ghq list | grep -E "${s}" | sort)
 }
 
 
@@ -124,6 +132,7 @@ alias di='docker image ls'
 alias dn='docker network ls'
 alias dp='docker container ls -a'
 alias dr='docker run -it --rm'
+alias dsp='docker system prune --volumes'
 alias dv='docker volume ls'
 
 alias dc='docker-compose'
@@ -136,13 +145,8 @@ alias dcu='docker-compose up'
 
 alias k='kubectl'
 
-mini() {
+function mini() {
     eval "$(minikube -p minikube docker-env)"
-}
-
-docker_clean() {
-    docker image ls --filter dangling=true --format '{{.ID}}' \
-    | xargs --no-run-if-empty docker image rm
 }
 
 
@@ -162,13 +166,13 @@ export AWS_REGION="${AWS_DEFAULT_REGION}"
 
 alias awsme='aws sts get-caller-identity'
 
-awsin () {
+function awsin () {
     saml2aws login --skip-prompt --force \
       --profile="${AWS_PROFILE}" \
       --role="${AWS_PROFILE}"
 }
 
-ecsin() {
+function ecsin() {
     local aws_region account_id
     aws_region=${1:-${AWS_DEFAULT_REGION}}
     account_id=$(aws sts get-caller-identity --query 'Account' --output text)
@@ -177,7 +181,7 @@ ecsin() {
         "${account_id}.dkr.ecr.${aws_region}.amazonaws.com"
 }
 
-peco_aws_profile() {
+function peco_aws_profile() {
     local r
     r=$(
         cat ~/.aws/credentials ~/.aws/config 2>/dev/null \

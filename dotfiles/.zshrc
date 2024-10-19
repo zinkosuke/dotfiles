@@ -13,6 +13,7 @@ EOF
         break
     fi
 done
+zplug 'greymd/tmux-xpanes'
 zplug 'zsh-users/zsh-autosuggestions'
 zplug 'zsh-users/zsh-syntax-highlighting'
 if ! zplug check --verbose; then

@@ -34,10 +34,6 @@ function apt_install() {
 function install_tmux_plugin() {
     rm -rf "${USER_HOME}/.tmux/plugins/tpm"
     git clone https://github.com/tmux-plugins/tpm "${USER_HOME}/.tmux/plugins/tpm"
-
-    add-apt-repository ppa:greymd/tmux-xpanes
-    apt update
-    apt install tmux-xpanes
 }
 # install_tmux_plugin
 
