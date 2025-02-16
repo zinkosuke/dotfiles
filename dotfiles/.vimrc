@@ -33,6 +33,7 @@ nnoremap s= <C-w>=
 nnoremap Y y$
 :command Hd diffsplit
 :command Vd vertical diffsplit
+nnoremap tt :<C-u>checktime<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Indent settings.
