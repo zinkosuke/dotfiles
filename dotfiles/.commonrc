@@ -94,6 +94,7 @@ alias grh='git reset --hard'
 alias grs='git reset --soft'
 alias gs='git status -bsu'
 alias gst='git stash'
+alias gt="git tag --list --format='%(color:yellow)%(refname:strip=2) %(color:cyan)%(authordate:format:%Y-%m-%d %H:%M:%S) %(color:bold blue)<%(authorname)>' --sort='-authordate'"
 alias gw='git switch'
 
 function peco_ghq_look() {
