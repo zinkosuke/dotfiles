@@ -23,6 +23,9 @@ nnoremap <C-l> <C-w>l
 nnoremap sm gt
 nnoremap sn gT
 nnoremap st :<C-u>tabnew<CR>
+" Split.
+nnoremap vs :<C-u>vs<CR>
+nnoremap sp :<C-u>sp<CR>
 " Resize window.
 nnoremap sj <C-w>+
 nnoremap sk <C-w>-
@@ -106,17 +109,17 @@ if dein#load_state(s:dein_path)
   call dein#add(s:dein_repo_path)
   
   " Add or remove your plugins here like this:
+  call dein#add('Shougo/neocomplete.vim')
   call dein#add('Shougo/neosnippet')
   call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('Shougo/neocomplete.vim')
-  call dein#add('scrooloose/nerdtree')
   call dein#add('Yggdroot/indentLine')
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('tpope/vim-surround')
-  call dein#add('tpope/vim-repeat')
-  call dein#add('kamykn/spelunker.vim')
   call dein#add('elzr/vim-json')
+  call dein#add('kamykn/spelunker.vim')
+  call dein#add('scrooloose/nerdtree')
   call dein#add('scrooloose/syntastic')
+  call dein#add('tpope/vim-repeat')
+  call dein#add('tpope/vim-surround')
+  call dein#add('vim-airline/vim-airline')
   
   " Required:
   call dein#end()
@@ -239,8 +242,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let NERDTreeShowHidden=1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
+" Yggdroot/indentLine
 " elzr/vim-json
 """"""""""""""""""""""""""""""""""""""""""""""""""
+let g:markdown_syntax_conceal = 0
 let g:vim_json_syntax_conceal = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""

@@ -1,28 +1,37 @@
 [user]
-    name = zinkosuke
+    name  = zinkosuke
     email = 48650930+zinkosuke@users.noreply.github.com
 [color]
     ui = auto
 [core]
-    autocrlf = false
-    editor = vim
+    autocrlf     = false
+    editor       = vim
     excludesfile = ~/.gitignore
-    ignorecase = false
-    pager = less -rN
-    quotepath = false
+    ignorecase   = false
+    pager        = less -rN
+    quotepath    = false
 [diff]
-    tool = vimdiff
+    algorithm  = histogram
+    colorMoved = plain
+    renames    = true
+    tool       = vimdiff
 [difftool]
     prompt = false
-[merge]
-    ff = false
-[push]
-    default = current
-[pull]
-    ff = only
-[ghq]
-    root = ~/ghq
+[fetch]
+    all   = true
+    prune = true
 [init]
     defaultBranch = main
+[merge]
+    ff = false
+[pull]
+    ff = only
+[push]
+    autoSetupRemote = true
+    default         = current
+
+[ghq]
+    root = ~/ghq
+
 [diff "sopsdiffer"]
 	textconv = sops -d

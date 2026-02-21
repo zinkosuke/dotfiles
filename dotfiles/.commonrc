@@ -39,14 +39,6 @@ if [ -x "$(command -v keychain)" ]; then
     . "${HOME}/.keychain/${HOST}-sh"
 fi
 
-pt() {
-    # alias pt='parquet-tools'
-    docker run --rm \
-        -v "$(pwd):/work" \
-        -w /work \
-        nathanhowell/parquet-tools:latest "${@}"
-}
-
 function rl() {
     echo "Reload shell ${SHELL}"
     exec "${SHELL}" -l
@@ -81,8 +73,8 @@ alias gd='git diff'
 alias gdc='git diff --cached'
 alias gdd='git difftool'
 alias gf='git fetch'
-alias gfp='git fetch --prune'
 alias gg='git grep -n'
+alias ggn='git grep -n --name-only'
 alias gl="git log --graph --all --pretty=format:'%C(yellow)%h %C(cyan)%cd %C(reset)%s %C(red)%d %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=format:'%Y-%m-%d %H:%M:%S'"
 alias glp='git log -p --follow'
 alias gm='git commit -m'
@@ -90,12 +82,10 @@ alias gma='git commit --amend'
 alias gpl='git pull'
 alias gps='git push'
 alias gr='git reset'
-alias grh='git reset --hard'
-alias grs='git reset --soft'
 alias gs='git status -bsu'
 alias gst='git stash'
 alias gt="git tag --list --format='%(color:yellow)%(refname:strip=2) %(color:cyan)%(authordate:format:%Y-%m-%d %H:%M:%S) %(color:bold blue)<%(authorname)>' --sort='-authordate'"
-alias gw='git switch'
+alias gw='git worktree'
 
 function peco_ghq_look() {
     local r
@@ -120,6 +110,20 @@ function gxx() {
     s=${1:-'.*'}
     xpanes -I% -c 'cd "$(ghq root)/%"' \
         $(ghq list | grep -E "${s}" | sort)
+}
+
+function prshow() {
+    local target base
+    target="${1}"
+    base=${2:-origin/master}
+    git log \
+        --merges \
+        --oneline \
+        --reverse \
+        --ancestry-path \
+        "${target}...${base}" \
+    | grep "Merge pull request #" \
+    | head
 }
 
 
@@ -156,6 +160,9 @@ function mini() {
 ##################################################
 alias tf='terraform'
 alias tff='terraform fmt -recursive'
+alias tfv='terraform validate'
+
+alias te='tfenv'
 
 
 ##################################################
