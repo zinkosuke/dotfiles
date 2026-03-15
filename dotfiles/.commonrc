@@ -6,6 +6,7 @@ export DIRSTACKSIZE=100
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less -rN'
+export PATH="${HOME}/.local/bin:${PATH}"
 
 if [ -x "$(command -v go)" ]; then
     export GOPATH=${HOME}/go

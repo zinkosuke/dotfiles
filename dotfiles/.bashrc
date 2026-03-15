@@ -1,3 +1,4 @@
+# shellcheck disable=SC1090
 . ~/.commonrc
 
 export HISTFILE=~/.bash_history
