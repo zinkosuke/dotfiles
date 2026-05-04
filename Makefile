@@ -2,8 +2,10 @@ SHELL := /bin/bash
 .SHELLFLAGS := -euxo pipefail -c
 
 USER      := $(or $(SUDO_USER),$(shell id -un))
-USER_HOME := $(shell getent passwd $(USER) | cut -d: -f6)
-USER_GRP  := $(shell getent group $(USER) | cut -d: -f3)
+# getent is Linux-only; eval echo ~user works on both Linux and macOS
+USER_HOME := $(shell eval echo ~$(USER))
+# id -g works on both Linux and macOS (getent group is Linux-only)
+USER_GRP  := $(shell id -g $(USER))
 
 export USER USER_HOME USER_GRP
 
@@ -12,6 +14,13 @@ export USER USER_HOME USER_GRP
 # ============================================================
 # Entry point
 # ============================================================
+
+# TODO dmg: awscliV2, Docker, gcloud
+install-mac: \
+	install-sub-brew \
+	install-sub-tmux-plugin \
+	install-sub-claude-code \
+	install-sub-mac-settings
 
 install-ubuntu: \
 	install-sub-apt \
@@ -26,7 +35,8 @@ install-ubuntu: \
 	install-sub-starship \
 	install-sub-tfenv \
 	install-sub-age \
-	install-sub-ghq
+	install-sub-ghq \
+	install-sub-claude-code
 
 # ============================================================
 # Sub targets (called individually or via install-ubuntu)
@@ -159,3 +169,41 @@ install-sub-tfenv:
 install-sub-tmux-plugin:
 	rm -rf $(USER_HOME)/.tmux/plugins/tpm
 	git clone https://github.com/tmux-plugins/tpm $(USER_HOME)/.tmux/plugins/tpm
+
+install-sub-claude-code:
+	curl -fsSL https://claude.ai/install.sh | bash
+
+# ============================================================
+# Sub targets (called individually or via install-ubuntu)
+# ============================================================
+
+install-sub-brew:
+	which brew || /bin/bash -c \
+		"$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	brew update
+	brew install \
+	    age \
+	    awk \
+	    bat \
+	    gh \
+	    ghq \
+	    git \
+	    gnu-sed \
+	    jq \
+	    peco \
+	    ripgrep \
+	    shellcheck \
+	    sops \
+	    starship \
+	    tfenv \
+	    tmux \
+	    tree \
+	    vim \
+	    watch \
+	    zplug \
+	    zsh
+	brew upgrade
+
+install-sub-mac-settings:
+	defaults write com.apple.screencapture location ~/Downloads
+	killall SystemUIServer

@@ -3,6 +3,7 @@
 export HISTFILE=~/.zsh_history
 
 for zplug_home in $(cat <<EOF
+/opt/homebrew/opt/zplug
 /usr/local/opt/zplug
 /usr/share/zplug
 EOF
@@ -68,5 +69,5 @@ bindkey '^F' peco_find
 chpwd() { l }
 
 eval "$(starship init zsh)"
-. <(kubectl completion zsh)
-. "${HOME}/.asdf/asdf.sh"
+# . <(kubectl completion zsh)
+# . "${HOME}/.asdf/asdf.sh"
