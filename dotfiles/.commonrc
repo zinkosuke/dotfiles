@@ -23,6 +23,7 @@ case "$(uname)" in
         alias sed='gsed'
         alias gopen='open -a "/Applications/Google Chrome.app"'
         alias c='pbcopy'
+        alias tac='tail -r'
         ;;
     Linux)
         alias l='ls -lahF --color=auto'
